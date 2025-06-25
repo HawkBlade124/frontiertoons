@@ -1,0 +1,24 @@
+*, ::before, ::after{
+	margin:0;
+}
+header, #headerWrapper, #navList, img{
+	width:100%;	
+}
+#headerWrapper{
+	display:grid;
+  grid-template-columns: 1fr 750px;
+}
+
+#navList{
+	display:flex;	
+	gap:20px;
+	list-style-type:none;
+	align-items:center;
+}
+#navListRight{
+	display:flex;	
+	gap:20px;
+}
+#navigation {
+	display:flex;	
+}

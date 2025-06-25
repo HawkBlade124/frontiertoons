@@ -14,8 +14,8 @@ use Twig\Source;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
-/* header.html */
-class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
+/* footer.html */
+class __TwigTemplate_7e2f22defec6ec8c2b7812f48df440a5 extends Template
 {
     private Source $source;
     /**
@@ -46,7 +46,7 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
      */
     public function getTemplateName(): string
     {
-        return "header.html";
+        return "footer.html";
     }
 
     /**
@@ -59,6 +59,6 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
 
     public function getSourceContext(): Source
     {
-        return new Source("", "header.html", "/var/www/webtoons/templates/header.html");
+        return new Source("", "footer.html", "/var/www/frontiertoons/templates/footer.html");
     }
 }
