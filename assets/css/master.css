@@ -1,24 +1,90 @@
+:root{
+	font-family: "Helvetica";
+  font-size:14px;	
+	--links:#fff;
+}
 *, ::before, ::after{
 	margin:0;
+}
+a{
+	text-decoration: none;	
+}
+ul{
+	list-style-type: none;	
+}
+h1,h2,h3,h4,h5,h6{
+	color:#F2505D
+}
+p{
+	color:#fff;
+}
+
+body{
+  background:#0D1440;
 }
 header, #headerWrapper, #navList, img{
 	width:100%;	
 }
+header{
+	background:#2646A6;
+	padding:13px;
+	box-sizing: border-box;		
+	margin-bottom:15px;	
+}
 #headerWrapper{
 	display:grid;
-  grid-template-columns: 1fr 750px;
+  grid-template-columns: 1fr 1fr;
+	align-items: center;
 }
-
+#headerWrapper #siteLogo{
+	font-size:25px;
+}
 #navList{
 	display:flex;	
 	gap:20px;
 	list-style-type:none;
 	align-items:center;
+	padding-left:0;
 }
 #navListRight{
 	display:flex;	
-	gap:20px;
+	gap:30px;
+	white-space: nowrap;
+	padding-left:0;
+}
+#navListRight li{
+		background-color:#D9307F;
+	cursor: pointer;	
+}
+#navListRight li{
+	background-color:none;
+}
+.navLinkRight:last-child{
+	background-color:none!important;
 }
 #navigation {
 	display:flex;	
+	font-size:16px;	
+}
+#navList .navLink a, #navListRight a{
+	color:var(--links);
+	padding:6px;
+	border-radius:10px;
+}
+.formWrapper, .formLeft, .formRight, input-group {
+	display:flex;
+}
+.formLeft, .formRight{
+	flex-direction: column;		
+	font-size:26px;	
+}
+.formWrapper{
+	justify-content: center;
+	gap:25px;
+}
+input-group{
+	display:flex;
+	flex-direction: column;
+	margin-bottom:15px;
+	color:#fff;
 }

@@ -48,10 +48,11 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
                 <li class=\"navLink\"><a href=\"#\">Adventures</a></li>
                 <li class=\"navLink\"><a href=\"/register\">Become An Author</a></li>                
                 <li class=\"navLink\"><a href=\"/catalog\">Comic Catalog</a></li>
+                <li class=\"navLink\"><a href=\"#\">Blog</a></li>
             </ul>
             <ul id=\"navListRight\">
-                <li class=\"navLinkRight\"><a href=\"\"><i class=\"fa-light fa-user-cowboy\"></i> Login</a></li>
-                <li class=\"navLinkRight\"><a href=\"\"><i class=\"fa-kit fa-light-user-cowboy-circle-plus\"></i> Register</a></li>
+                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login</a></li>
+                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-kit fa-light-user-cowboy-circle-plus\"></i> Register</a></li>
                 <li class=\"navLinkRight\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
             </ul>
         </nav>
@@ -87,10 +88,11 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
                 <li class=\"navLink\"><a href=\"#\">Adventures</a></li>
                 <li class=\"navLink\"><a href=\"/register\">Become An Author</a></li>                
                 <li class=\"navLink\"><a href=\"/catalog\">Comic Catalog</a></li>
+                <li class=\"navLink\"><a href=\"#\">Blog</a></li>
             </ul>
             <ul id=\"navListRight\">
-                <li class=\"navLinkRight\"><a href=\"\"><i class=\"fa-light fa-user-cowboy\"></i> Login</a></li>
-                <li class=\"navLinkRight\"><a href=\"\"><i class=\"fa-kit fa-light-user-cowboy-circle-plus\"></i> Register</a></li>
+                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login</a></li>
+                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-kit fa-light-user-cowboy-circle-plus\"></i> Register</a></li>
                 <li class=\"navLinkRight\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
             </ul>
         </nav>

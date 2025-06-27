@@ -54,22 +54,62 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
     <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
     <script src=\"../assets/js/master.js\"></script>
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
 </head>
 <body>
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('preloader').style.display = 'none';
+        });
+    </script>
+    <style>
+        #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff; /* or dark background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        }
+
+        .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #ccc;
+        border-top-color: #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+        }
+
+    </style>
+    <div id=\"preloader\">
+  <div class=\"spinner\"></div>
+</div>
+
     ";
-        // line 13
-        yield from $this->load("header.html", 13)->unwrap()->yield($context);
-        // line 14
+        // line 53
+        yield from $this->load("header.html", 53)->unwrap()->yield($context);
+        // line 54
         yield "    
-    ";
-        // line 15
+       ";
+        // line 55
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 16
+        // line 58
         yield "
     ";
-        // line 17
-        yield from $this->load("footer.html", 17)->unwrap()->yield($context);
-        // line 18
+        // line 59
+        yield from $this->load("footer.html", 59)->unwrap()->yield($context);
+        // line 60
         yield "</body>
 </html>
 ";
@@ -87,13 +127,16 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         yield from [];
     }
 
-    // line 15
+    // line 55
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
+        // line 56
+        yield "        Default content
+        ";
         yield from [];
     }
 
@@ -118,7 +161,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  91 => 15,  80 => 4,  73 => 18,  71 => 17,  68 => 16,  66 => 15,  63 => 14,  61 => 13,  49 => 4,  44 => 1,);
+        return array (  138 => 56,  131 => 55,  120 => 4,  113 => 60,  111 => 59,  108 => 58,  106 => 55,  103 => 54,  101 => 53,  49 => 4,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -133,15 +176,57 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
     <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
     <script src=\"../assets/js/master.js\"></script>
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
 </head>
 <body>
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('preloader').style.display = 'none';
+        });
+    </script>
+    <style>
+        #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff; /* or dark background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        }
+
+        .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #ccc;
+        border-top-color: #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+        }
+
+    </style>
+    <div id=\"preloader\">
+  <div class=\"spinner\"></div>
+</div>
+
     {% include 'header.html' %}
     
-    {% block content %}{% endblock %}
+       {% block content %}
+        Default content
+        {% endblock %}
 
     {% include 'footer.html' %}
 </body>
 </html>
-", "base.index.html", "/var/www/webtoons/templates/base.index.html");
+", "base.index.html", "/var/www/frontiertoons/templates/base.index.html");
     }
 }

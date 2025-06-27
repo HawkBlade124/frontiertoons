@@ -12,11 +12,21 @@ $twig = new \Twig\Environment($loader, [
     'debug' => true,
 ]);
 
-try {
-    $stmt = $pdo->query('SELECT * FROM users ORDER BY userID DESC LIMIT 10');
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$basePath = ''; // Update to '/myapp' if needed
 
-    echo $twig->render('homepage.html.twig', ['users' => $users]);
-} catch (Exception $e) {
-    echo 'Twig Render Error: ' . $e->getMessage();
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+if ($basePath && strpos($uri, $basePath) === 0) {
+    $uri = substr($uri, strlen($basePath));
 }
+$uri = rtrim($uri, '/');
+$uri = $uri === '' ? '' : '/' . ltrim($uri, '/');
+
+$routes = [
+    '' => 'homepage.php',
+    '/home' => 'homepage.php',
+    '/login' => 'login.php',
+];
+
+$routeFile = $routes[$uri] ?? '404.php';
+
+require_once __DIR__ . "/includes/routes/$routeFile";
