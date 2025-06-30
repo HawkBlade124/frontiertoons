@@ -1,0 +1,36 @@
+{% extends 'base.index.html' %}
+{% block title %}Your Profile Home{% endblock %}
+{% block content %}
+<div class="profileHeader">
+    <p>Welcome {{users.firstName}}!</p>    
+</div>
+    <div class="profileStory">
+        <div class="profileStats">A glance of your stats</div>        
+    </div>
+<div class="profileWrapper">
+    <div class="profileSidebar">
+        <a href="" class="active">Edit Profile</a>
+        <a href="">Subscriptions</a>
+        <a href="">Account</a>
+        <a href="">Settings</a>
+        <a href="">Security</a>
+    </div>
+    <div class="resultsSection">
+        <div class="profileResults edit active" data="profileTab">
+            <form class="updateProfile" method="POST" action="/includes/updateProfile.php">
+                <label for="email">Change Email:</label>
+                <input type="email" name="email">
+            </form>
+        </div>
+        <div class="profileResults subscr" data="profileTab">
+            <p>This is to build out the subscriptions section</p>
+        </div>
+        <div class="profileResults account" data="profileTab">
+            <p>This is to build out the subscriptions section</p>
+        </div>    
+        <div class="profileResults settings" data="profileTab">
+            <p>This is to build out the settings section</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

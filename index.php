@@ -1,32 +1,17 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+/**
+ * Front to the WordPress application. This file doesn't do anything, but loads
+ * wp-blog-header.php which does and tells WordPress to load the theme.
+ *
+ * @package WordPress
+ */
 
-require_once __DIR__ . '/twig/vendor/autoload.php';
-require_once __DIR__ . '/includes/config.php';
+/**
+ * Tells WordPress to load the WordPress theme and output it.
+ *
+ * @var bool
+ */
+define( 'WP_USE_THEMES', true );
 
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
-$twig = new \Twig\Environment($loader, [
-    'cache' => __DIR__ . '/twig/cache',
-    'debug' => true,
-]);
-
-$basePath = ''; // Update to '/myapp' if needed
-
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-if ($basePath && strpos($uri, $basePath) === 0) {
-    $uri = substr($uri, strlen($basePath));
-}
-$uri = rtrim($uri, '/');
-$uri = $uri === '' ? '' : '/' . ltrim($uri, '/');
-
-$routes = [
-    '' => 'homepage.php',
-    '/home' => 'homepage.php',
-    '/login' => 'login.php',
-];
-
-$routeFile = $routes[$uri] ?? '404.php';
-
-require_once __DIR__ . "/includes/routes/$routeFile";
+/** Loads the WordPress Environment and Template */
+require __DIR__ . '/wp-blog-header.php';

@@ -1,5 +1,11 @@
 {% extends 'base.index.html' %}
+{% block title %}Begin your adventure{% endblock %}
 {% block content %}
+        {% if error == 'invalid' %}
+        <div class="alert alert-danger">
+            Invalid username or password.
+        </div>
+        {% endif %}
 <div class="formWrapper">
     <div class="formLeft">
         <h2>Login to Your Account</h1>
@@ -12,7 +18,8 @@
                 <label for="password">Password</label>
                 <input type="password" name="password">
             </input-group>
-            <button class="submitBtn" name="submit">Login</button>
+
+            <button class="submitBtn" name="login">Login</button>
         </form>
     </div>
     <div class="formRight">
@@ -29,6 +36,10 @@
                 </input-group>
             </div>
             <input-group>
+                <label for="email">email</label>
+                <input type="email" name="email" required>    
+            </input-group>
+            <input-group>
                 <label for="username">Username</label>
                 <input type="text" name="username" required>    
             </input-group>
@@ -36,6 +47,7 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" required>    
             </input-group>
+            
             <input-group>
                 <label for="birthday">Birthday</label>
                 <input type="text" name="birthday" required>    
