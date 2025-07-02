@@ -11,8 +11,12 @@
                 <li class="navListLI"><i class="fa-light fa-magnifying-glass"></i> Search</li>
             </ul>
             <ul id="navListRight">
-                <li class="navLinkRight"><a class="navLinkBtn" href="/login"><i class="fa-light fa-user-cowboy"></i> Login</a></li>
-                <li class="navLinkRight"><a class="navLinkBtn" href="/login"><i class="fa-kit fa-light-user-cowboy-circle-plus"></i> Register</a></li>
+                {% set loggedIn = logged_in%}
+                {% if loggedIn == true %}
+                    <li class="navLinkRight"><a class="navLinkBtn" href="/logout"><i class="fa-light fa-right-from-bracket"></i>Logout</a></li>
+                    {% else %}
+                    <li class="navLinkRight"><a class="navLinkBtn" href="/login"><i class="fa-light fa-user-cowboy"></i> Login/register</a></li>
+                {% endif %}
                 <li class="navLinkRight"></li>
             </ul>
         </nav>

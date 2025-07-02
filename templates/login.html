@@ -20,7 +20,9 @@
             </input-group>
 
             <button class="submitBtn" name="login">Login</button>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         </form>
+
     </div>
     <div class="formRight">
         <h2>Or register for one!</h2>

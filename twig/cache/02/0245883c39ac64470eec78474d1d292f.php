@@ -41,19 +41,33 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
         // line 1
         yield "<header>
     <div id=\"headerWrapper\">
-        <div id=\"siteLogo\">FrontierToons</div>
+        <div id=\"siteLogo\"><a href=\"/\">FrontierToons</a></div>
         <nav id=\"navigation\">
             <ul id=\"navList\">
-                <li class=\"navLink\"><a href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navLink\"><a href=\"#\">Adventures</a></li>
-                <li class=\"navLink\"><a href=\"/register\">Become An Author</a></li>                
-                <li class=\"navLink\"><a href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navLink\"><a href=\"#\">Blog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"#\">Adventures</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>                
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"#\">Blog</a></li>
+                <li class=\"navListLI\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
             </ul>
             <ul id=\"navListRight\">
-                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login</a></li>
-                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-kit fa-light-user-cowboy-circle-plus\"></i> Register</a></li>
-                <li class=\"navLinkRight\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
+                ";
+        // line 14
+        $context["loggedIn"] = ($context["logged_in"] ?? null);
+        // line 15
+        yield "                ";
+        if ((($context["loggedIn"] ?? null) == true)) {
+            // line 16
+            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/logout\"><i class=\"fa-light fa-right-from-bracket\"></i>Logout</a></li>
+                    ";
+        } else {
+            // line 18
+            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login/register</a></li>
+                ";
+        }
+        // line 20
+        yield "                <li class=\"navLinkRight\"></li>
             </ul>
         </nav>
     </div>
@@ -72,28 +86,41 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
     /**
      * @codeCoverageIgnore
      */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDebugInfo(): array
     {
-        return array (  42 => 1,);
+        return array (  70 => 20,  66 => 18,  62 => 16,  59 => 15,  57 => 14,  42 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("<header>
     <div id=\"headerWrapper\">
-        <div id=\"siteLogo\">FrontierToons</div>
+        <div id=\"siteLogo\"><a href=\"/\">FrontierToons</a></div>
         <nav id=\"navigation\">
             <ul id=\"navList\">
-                <li class=\"navLink\"><a href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navLink\"><a href=\"#\">Adventures</a></li>
-                <li class=\"navLink\"><a href=\"/register\">Become An Author</a></li>                
-                <li class=\"navLink\"><a href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navLink\"><a href=\"#\">Blog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"#\">Adventures</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>                
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"#\">Blog</a></li>
+                <li class=\"navListLI\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
             </ul>
             <ul id=\"navListRight\">
-                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login</a></li>
-                <li class=\"navLinkRight\"><a href=\"/login\"><i class=\"fa-kit fa-light-user-cowboy-circle-plus\"></i> Register</a></li>
-                <li class=\"navLinkRight\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
+                {% set loggedIn = logged_in%}
+                {% if loggedIn == true %}
+                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/logout\"><i class=\"fa-light fa-right-from-bracket\"></i>Logout</a></li>
+                    {% else %}
+                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login/register</a></li>
+                {% endif %}
+                <li class=\"navLinkRight\"></li>
             </ul>
         </nav>
     </div>

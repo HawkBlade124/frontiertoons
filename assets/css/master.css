@@ -21,7 +21,7 @@ p{
 }
 
 body{
-  background:#193344;
+  background:#013A40;
   color:#fff;
 }
 header, #headerWrapper, #navList, img{
@@ -58,10 +58,15 @@ header{
 	padding-left:0;
 }
 .navLinkBtn{
-		background-color:#FFCE87;
+		background-color:#025951;
 	cursor: pointer;
 	padding:10px 20px;
 	border-radius: 20px;
+	color:#fff;
+	border:1px solid #039184
+}
+.navLinkBtn:hover{
+	background:#039184;
 }
 #navigation {
 	display:flex;	
@@ -73,7 +78,7 @@ header{
 	border-radius:10px;
 }
 .navLink:hover{
-	color:#F89911;
+	color:#039184;
 }
 .formWrapper, .formLeft, .formRight, input-group {
 	display:flex;
@@ -93,9 +98,15 @@ input-group{
 	color:#fff;
 }
 .profileHeader {
-  font-size:55px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	gap:35px;
   text-transform: uppercase;
   font-weight: bold;
+}
+.profileHeader #profileName{
+	  font-size:55px;
 }
 .profileHeader p{
 	text-align: center;
@@ -108,7 +119,7 @@ input-group{
   max-width:1800px;
   margin:0 auto;
   font-size:21px;
-	background:#146499;	
+	background:#0476D9;	
 	border-radius: 10px;
 	
 }
@@ -117,7 +128,7 @@ input-group{
   flex-direction: column;
   line-height:1.9;
   width:15%;
-	background:#593F19;
+	background:#025951;
 	border-radius:10px 0 0 10px;	
 	border-right:1px solid #C0C0C0
 }
@@ -126,7 +137,7 @@ input-group{
 	font-weight: bold;
 }
 .profileSidebar a:hover{
-	background-color:#995C05;
+	background-color:#039184;
 	color:#fff;
 }
 .profileSidebar a.active{
@@ -152,4 +163,7 @@ input-group{
 .profileStory {
   text-align: center;
   margin-bottom:20px;
+}
+#profileAvatar {
+  cursor:pointer;
 }
