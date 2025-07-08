@@ -6,7 +6,7 @@ function getUserInfo($pdo, $userID) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 function getProfileInfo($pdo, $profileID){
-    $stmt = $pdo->prepare("SELECT * FROM profiles WHERE profileID = ? LEFT JOIN users where userID = ?");
-    $stmt->execute([$userID]);
+    $stmt = $pdo->prepare("SELECT * FROM profile WHERE profileID = ? LEFT JOIN users where userID = ?");
+    $stmt->execute([$profileID, $userID]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }

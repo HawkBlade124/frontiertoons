@@ -4,18 +4,18 @@
         <nav id="navigation">
             <ul id="navList">
                 <li class="navListLI"><a class="navLink" href="/catalog">Comic Catalog</a></li>
-                <li class="navListLI"><a class="navLink" href="#">Adventures</a></li>
+                <li class="navListLI"><a class="navLink" href="/catalog">Adventures</a></li>
                 <li class="navListLI"><a class="navLink" href="/register">Become An Author</a></li>                
                 <li class="navListLI"><a class="navLink" href="/catalog">Comic Catalog</a></li>
-                <li class="navListLI"><a class="navLink" href="#">Blog</a></li>
+                <li class="navListLI"><a class="navLink" href="https://blog.frontiertoons.com">Blog</a></li>
                 <li class="navListLI"><i class="fa-light fa-magnifying-glass"></i> Search</li>
             </ul>
-            <ul id="navListRight">
-                {% set loggedIn = logged_in%}
+            <ul id="navListRight">                
+                {% set loggedIn = logged_in %}                                
                 {% if loggedIn == true %}
-                    <li class="navLinkRight"><a class="navLinkBtn" href="/logout"><i class="fa-light fa-right-from-bracket"></i>Logout</a></li>
+                    <li class="navLinkRight"><a class="navLinkBtn" href="/dashboard"><i class="fa-light fa-circle-user"></i>Your Profile</a></li>
                     {% else %}
-                    <li class="navLinkRight"><a class="navLinkBtn" href="/login"><i class="fa-light fa-user-cowboy"></i> Login/register</a></li>
+                    <li class="navLinkRight"><a class="navLinkBtn" href="/login"><i class="fa-light fa-user-cowboy"></i> Login/Register</a></li>
                 {% endif %}
                 <li class="navLinkRight"></li>
             </ul>

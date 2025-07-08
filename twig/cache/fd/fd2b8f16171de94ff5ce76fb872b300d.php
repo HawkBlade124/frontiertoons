@@ -54,7 +54,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
     <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
-    <script src=\"../assets/js/master.js\"></script>
+    <script src=\"../assets/js/templates/master.js\"></script>
     <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>        
     <script src=\"/assets/js/UserFunctions.js\"></script>
 </head>
@@ -178,7 +178,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
     <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
-    <script src=\"../assets/js/master.js\"></script>
+    <script src=\"../assets/js/templates/master.js\"></script>
     <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>        
     <script src=\"/assets/js/UserFunctions.js\"></script>
 </head>

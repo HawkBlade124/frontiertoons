@@ -3,6 +3,7 @@ global $twig;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
+session_start();
 
 if (!isset($twig)) {
     $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/templates');
@@ -17,4 +18,4 @@ $sessionVars =[
         'username' => $_SESSION['username'] ?? null,
     'logged_in' => $_SESSION['logged_in'] ?? false,
 ];
-echo $twig->render('homepage.html', $sessionVars);
+echo $twig->render('catalog.html', $sessionVars);

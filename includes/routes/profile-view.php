@@ -17,4 +17,4 @@ $sessionVars =[
         'username' => $_SESSION['username'] ?? null,
     'logged_in' => $_SESSION['logged_in'] ?? false,
 ];
-echo $twig->render('homepage.html', $sessionVars);
+echo $twig->render('profile-view.html', $sessionVars);

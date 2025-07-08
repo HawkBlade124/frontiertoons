@@ -1,62 +1,88 @@
 {% extends 'base.index.html' %}
 {% block title %}Your Profile Home{% endblock %}
 {% block content %}
-<script src="/assets/js/UserFunctions.js"></script>
-<script>
-    const CURRENT_USER_ID = {{ userID|json_encode|raw }};
-</script>
+<script src="/assets/js/functions/UserFunctions.js"></script>
 
-<div class="profileHeader">
-        <div id="profileName">
-            <p>Welcome {{users.firstName}}!</p>            
-        </div>
-        <div id="profileAvatar" onclick="triggerFilePicker()">
-            <img id="dashboardAvatar" src="data:image/jpeg;base64,{{ users.avatar }}" alt="User Avatar">
-            <span class="changeAvatar"><i class="fa-solid fa-pencil"></i></span>
-            <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadImage()" />
-        </div>
-
-</div>
-    <div class="profileStory">
-        <div class="profileStats">A glance of your stats</div>        
-    </div>
-<div class="profileWrapper">
-    <div class="profileSidebar">
-        <a href="" class="active">Edit Profile</a>
-        <a href="">Subscriptions</a>
-        <a href="">Account</a>
-        <a href="">Settings</a>
-        <a href="">Security</a>
-    </div>
-    <div class="resultsSection">
-        <div class="profileResults edit active" data="profileTab">
-            <input-group>
-                <label for="email">Change Email:</label>
-                <input type="email" name="email">
-            </input-group>
-            <input-group>
-                <label for="email">Personal Website:</label>
-                <input type="email" name="email">
-            </input-group>
-            <input-group>
-                <label for="email">Personal Website:</label>
-                <input type="email" name="email">
-            </input-group>
-            
-            <div class="deleteAccount">
-                If you want to stop adventuring all together, make sure you have all your affairs in order before you stop.
-                <button type="submit" class="danger" onclick="deleteAccount()">Delete Your Account</button>
-           </div>
-        </div>
-        <div class="profileResults subscr" data="profileTab">
-            <p>This is to build out the subscriptions section</p>
-        </div>
-        <div class="profileResults account" data="profileTab">
-            <p>This is to build out the subscriptions section</p>
+<div class="profile">
+    <div class="profileHeader">
+        <div class="profileHeadLeft">
+            <div id="profileAvatar" onclick="triggerFilePicker()">
+                <img id="dashboardAvatar" 
+                    src="/assets/images/user-profile-images/{{ users.userID|hash('user-images-v1') }}/{{ users.avatar|default('default-avatar.jpg') }}" 
+                    alt="User Avatar" 
+                    data-userid="{{ users.userID }}">
+                <span class="changeAvatar"><i class="fa-solid fa-pencil"></i></span>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadImage()" />
+            </div>
+            <div id="profileName">
+                <p>Welcome {{ users.firstName }}!</p>            
+            </div>
         </div>    
-        <div class="profileResults settings" data="profileTab">
-            <p>This is to build out the settings section</p>
+        <div class="profileHeadRight">
+            <a id="viewAsGuestLink" href="/profile-view">Preview</a>
+            <a href="/logout">Sign Out</a>
+        </div>
+    </div>
+
+    <div class="profileWrapper">
+        <div class="profileSidebar">
+            <a href="" class="active">Edit Profile</a>
+            <a href="">Subscriptions</a>       
+            <a href="">Settings</a>
+            <a href="">Security</a>
+        </div>
+        <div class="resultsSection">
+                <div class="profileInnerHead">     
+                    <div id="profileUpdateMsg"></div>
+                    Last Updated: {{users.lastMod}}
+                </div>
+            <div class="profileResults edit active" data="profileTab">                
+                <div class="inputGroup">
+                    <label for="email">Current Email: {{users.email}}</label>
+                    <div class="inputIcons">
+                        <input type="email" name="email" data-userID="{{users.userID}}" value="{{users.email}}">
+                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="email" >Update</button>
+                    </div>
+                </div>
+                <div class="inputGroup">
+                    <label for="website">Personal Website: {{users.website}}</label>                    
+                    <div class="inputIcons">
+                        <input type="text" name="website" data-userID="{{users.userID}}" value="{{users.website}}">
+                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="website">Update</button>
+                    </div>                        
+                </div>                
+                <div class="inputGroup"> 
+                    <label for="niceName">Change Nickname: {{users.niceName}}</label>
+                    <div class="inputIcons">
+                        <input type="text" name="niceName" data-userID="{{users.userID}}" value="{{users.niceName}}">
+                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="niceName">Update</button>          
+                    </div>                        
+                </div>
+                <div class="inputGroup">                           
+                    <label for="bio">Bio:</label>
+                    <div class="inputIcons">
+                        <textarea name="bio" rows="15" cols="100" data-userID="{{users.userID}}">{{users.bio}}</textarea>
+                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="bio" >Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="profileResults subscr" data="profileTab">
+                <p>This is to build out the subscriptions section</p>
+            </div> 
+            <div class="profileResults settings" data="profileTab">
+                <p>This is to build out the settings section</p>
+            </div>
+            <div class="profileResults security" data="profileTab">
+                <div class="deleteAccount">
+                    If you want to stop adventuring all together, make sure you have all your affairs in order before you stop.
+                    <button type="submit" class="danger" onclick="deleteAccount()">Delete Your Account</button>
+            </div>
+
+            </div> 
         </div>
     </div>
 </div>
+<!-- <pre>
+{{dump()}}
+</pre> -->
 {% endblock %}

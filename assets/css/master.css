@@ -19,7 +19,6 @@ h1,h2,h3,h4,h5,h6{
 p{
 	color:#fff;
 }
-
 body{
   background:#013A40;
   color:#fff;
@@ -97,13 +96,29 @@ input-group{
 	margin-bottom:15px;
 	color:#fff;
 }
+.profile{
+	display:flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	background:#001e21;
+	padding:65px 15px;
+	max-width: 1600px;
+	margin:0 auto;
+	border-radius: 35px;
+}
 .profileHeader {
 	display:flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	gap:35px;
   text-transform: uppercase;
   font-weight: bold;
+	width:100%;
+	margin:0 auto;
+}
+.profileHeader, .profileStory, .profileWrapper{
+	max-width: 1300px;
 }
 .profileHeader #profileName{
 	  font-size:55px;
@@ -111,30 +126,50 @@ input-group{
 .profileHeader p{
 	text-align: center;
 	padding:35px 0;
-	margin-top:0;
+	margin-top:0;	
+}
+.profileHeadLeft{
+	display:flex;
+	align-items: center;	
+	gap:15px;
+}
+.profileHeadRight a, .btn-primary{
+	display:block;
+	padding:10px 20px;
+	background:#025951;
+  color:#fff;
+	border-radius: 35px;
+	font-weight:300;
+	letter-spacing: 1.2px;
+	cursor:pointer;
+}
+.btn-primary{
+	background:#0483f1;
+	border:none;
+	text-transform: uppercase;
+	padding:6px 15px;
+}
+.btn-primary:hover{
+	background:#379ef7;
 }
 .profileWrapper {
   display:flex;
+	flex-direction: column;
   justify-content: space-between;
-  max-width:1800px;
+	width:100%;
   margin:0 auto;
   font-size:21px;
-	background:#0476D9;	
-	border-radius: 10px;
-	
+	background:#0476D9;		
 }
 .profileSidebar{
   display: flex;
-  flex-direction: column;
   line-height:1.9;
-  width:15%;
-	background:#025951;
-	border-radius:10px 0 0 10px;	
-	border-right:1px solid #C0C0C0
+	background:#025951;	
 }
 .profileSidebar a{
-	padding:20px;
+	padding:10px 20px;
 	font-weight: bold;
+	border-right:2px solid rgb(0, 30, 33)
 }
 .profileSidebar a:hover{
 	background-color:#039184;
@@ -151,9 +186,14 @@ input-group{
   display:flex;
   flex-direction: column;  
   width:100%;
+	max-width: 1000px;
+	margin:0 auto;
 }
 .profileResults.active{
   display: flex;	
+	flex-direction: column;
+	align-items: center;
+	gap:20px;
 }
 .profileResults{
   display: none;
@@ -161,9 +201,83 @@ input-group{
 }
 
 .profileStory {
-  text-align: center;
+	display:flex;
+	flex-direction: column;
+	font-size:19px;
+	line-height: 1.6;
   margin-bottom:20px;
+	width:100%;
+	margin:0 auto;
+	padding-bottom:15px;
 }
 #profileAvatar {
   cursor:pointer;
+}
+#dashboardAvatar {
+  max-width:100px;
+  max-height: 200px;
+  border-radius: 50%;  
+}
+.deleteAccount {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size:12px;
+  width:100%;
+}
+.deleteAccount .danger{
+	border:none;
+	background:none;
+	color:#fff;
+	border-radius: 20px;
+	padding:10px;
+	font-size:10px;
+	cursor: pointer;
+}
+.deleteAccount .danger:hover{
+	border:1px solid rgb(181, 3, 3);
+	background:rgba(171, 0, 0, 0.6);
+}
+.inputGroup {
+  display:flex;
+  flex-direction: column;
+  width:100%;
+	padding:15px 20px;
+	max-width: 750px;
+	background:#0158a5;
+}
+.inputIcons{
+	display:flex;
+	align-items: flex-end;
+	gap:25px;
+}
+.inputGroup input, .inputGroup textarea{
+  background:none;
+  border:none;
+  border-bottom:1px solid #024784;	
+}
+.inputGroup input{
+	display:flex;
+	align-items: center;
+  height:30px;
+	width:100%;
+	margin-right:15px;
+	color:#fff;
+}
+.inputGroup textarea{
+	width: 100%;
+}
+.profileHeadRight{
+	display: flex;
+	align-items:center;
+	gap:6px;
+}
+#viewAsGuestLink{
+	background:none;
+	padding:0;
+	border-radius:0;
+	border-bottom:1px solid transparent;
+}
+#viewAsGuestLink:hover{
+	border-bottom:1px solid #fff;
 }
