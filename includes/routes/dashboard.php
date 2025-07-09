@@ -40,6 +40,7 @@ $twig->addExtension(new DebugExtension());
 $twig->addFilter(new \Twig\TwigFilter('hash', function ($value, $namespace = 'user-images-v1') {
     return hash('sha256', $namespace . '-' . $value);
 }));
+
 // Render Template
 echo $twig->render('dashboard.html', [
     'title'     => 'Dashboard',

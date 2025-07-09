@@ -49,15 +49,29 @@ $(function(){
                 alert('Unable to update avatar');
             }
         });
-    }
-    
-    
+    }    
 
     // Expose functions to global scope for event handlers
     window.triggerFilePicker = triggerFilePicker;
     window.uploadImage = uploadImage;
-})
 
+$('.profileSidebarBtn').click(function () {
+    // Remove 'active' from all sidebar buttons
+    $('.profileSidebarBtn.active').removeClass('active');
+    $(this).addClass('active');
+
+    // Get the data-field of the clicked button
+    var field = $(this).data('field');
+
+    // Remove 'active' from all result sections
+    $('.resultsSection .active').removeClass('active');
+
+    // Add 'active' to the matching result section
+    $('.resultsSection [data="' + field + '"]').addClass('active');
+});
+
+
+})
 function changeData(button) {
     const $btn = $(button);
     const field = $btn.data('field');
@@ -66,8 +80,6 @@ function changeData(button) {
 
     const value = $input.val();
     const userID = $input.data('userid');
-
-    console.log({ field, value, userID });
 
     if (!field || !value || !userID) {
         console.error('Missing required data');
@@ -84,10 +96,15 @@ function changeData(button) {
             userID: userID
         },
         success: function(response) {
-            console.log('Server response:', response);
-            $('#profileUpdateMsg').html('Updated successfully!');
+            $('#profileUpdateMsg').html('Updated successfully! Page will refresh in 5 seconds.');
             if (response.status === 'success') {
-                location.reload(); // Refresh to show updated values
+                $btn.html('<i class="fa-solid fa-spinner fa-spin-pulse"></i>');                
+                setTimeout(() => {                    
+                    $btn.html('Saved!');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard'
+                    }, 2500);
+                }, 2000)
             }
         },
         error: function() {

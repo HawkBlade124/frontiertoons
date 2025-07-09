@@ -144,10 +144,11 @@ input-group{
 	cursor:pointer;
 }
 .btn-primary{
-	background:#0483f1;
+	background:none;
 	border:none;
 	text-transform: uppercase;
 	padding:6px 15px;
+	color:#013a40
 }
 .btn-primary:hover{
 	background:#379ef7;
@@ -158,7 +159,7 @@ input-group{
   justify-content: space-between;
 	width:100%;
   margin:0 auto;
-  font-size:21px;
+  font-size:16px;
 	background:#0476D9;		
 }
 .profileSidebar{
@@ -166,21 +167,19 @@ input-group{
   line-height:1.9;
 	background:#025951;	
 }
-.profileSidebar a{
+.profileSidebar div{
 	padding:10px 20px;
 	font-weight: bold;
-	border-right:2px solid rgb(0, 30, 33)
+	border-right:2px solid rgb(0, 30, 33);
+	cursor:pointer;
 }
-.profileSidebar a:hover{
+.profileSidebar div:hover{
 	background-color:#039184;
 	color:#fff;
 }
-.profileSidebar a.active{
+.profileSidebar div.active{
 	color:#fff;
 	border-radius: 10px 0 0 0;
-}
-.profileSidebar a:last-child.active{
-	border-radius: 10px 0 0 0
 }
 .resultsSection{
   display:flex;
@@ -240,21 +239,27 @@ input-group{
 }
 .inputGroup {
   display:flex;
-  flex-direction: column;
+  justify-content: space-between;
+	align-items: center;
   width:100%;
 	padding:15px 20px;
 	max-width: 750px;
-	background:#0158a5;
 }
 .inputIcons{
 	display:flex;
 	align-items: flex-end;
 	gap:25px;
+	width:100%;
+	max-width: 650px;	  
+	border-bottom:1px solid #024784;	
+}
+.inputIcons label{
+	white-space: nowrap;
 }
 .inputGroup input, .inputGroup textarea{
   background:none;
   border:none;
-  border-bottom:1px solid #024784;	
+	
 }
 .inputGroup input{
 	display:flex;

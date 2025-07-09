@@ -26,10 +26,10 @@
 
     <div class="profileWrapper">
         <div class="profileSidebar">
-            <a href="" class="active">Edit Profile</a>
-            <a href="">Subscriptions</a>       
-            <a href="">Settings</a>
-            <a href="">Security</a>
+            <div class="profileSidebarBtn active">Edit Profile</div>
+            <div class="profileSidebarBtn">Subscriptions</div>
+            <div class="profileSidebarBtn">Settings</div>
+            <div class="profileSidebarBtn">Security</div>
         </div>
         <div class="resultsSection">
                 <div class="profileInnerHead">     
@@ -38,28 +38,28 @@
                 </div>
             <div class="profileResults edit active" data="profileTab">                
                 <div class="inputGroup">
-                    <label for="email">Current Email: {{users.email}}</label>
+                    <label for="email">Email:</label>
                     <div class="inputIcons">
                         <input type="email" name="email" data-userID="{{users.userID}}" value="{{users.email}}">
                         <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="email" >Update</button>
                     </div>
                 </div>
                 <div class="inputGroup">
-                    <label for="website">Personal Website: {{users.website}}</label>                    
-                    <div class="inputIcons">
+                    <label for="website">Website:</label>
+                    <div class="inputIcons">                        
                         <input type="text" name="website" data-userID="{{users.userID}}" value="{{users.website}}">
                         <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="website">Update</button>
                     </div>                        
                 </div>                
                 <div class="inputGroup"> 
-                    <label for="niceName">Change Nickname: {{users.niceName}}</label>
+                    <label for="niceName">Nickname:</label>
                     <div class="inputIcons">
                         <input type="text" name="niceName" data-userID="{{users.userID}}" value="{{users.niceName}}">
                         <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="niceName">Update</button>          
                     </div>                        
                 </div>
-                <div class="inputGroup">                           
-                    <label for="bio">Bio:</label>
+                <div class="inputGroup">    
+                    <label for="bio">Bio:</label>                       
                     <div class="inputIcons">
                         <textarea name="bio" rows="15" cols="100" data-userID="{{users.userID}}">{{users.bio}}</textarea>
                         <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="bio" >Update</button>

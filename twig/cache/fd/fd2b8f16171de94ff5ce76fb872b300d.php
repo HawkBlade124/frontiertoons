@@ -55,8 +55,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
     <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
     <script src=\"../assets/js/templates/master.js\"></script>
-    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>        
-    <script src=\"/assets/js/UserFunctions.js\"></script>
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>            
 </head>
 <body>
     <script>
@@ -99,19 +98,19 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
 </div>
 
     ";
+        // line 54
+        yield from $this->load("header.html", 54)->unwrap()->yield($context);
         // line 55
-        yield from $this->load("header.html", 55)->unwrap()->yield($context);
-        // line 56
         yield "    
        ";
-        // line 57
+        // line 56
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 60
+        // line 59
         yield "
     ";
+        // line 60
+        yield from $this->load("footer.html", 60)->unwrap()->yield($context);
         // line 61
-        yield from $this->load("footer.html", 61)->unwrap()->yield($context);
-        // line 62
         yield "</body>
 </html>
 ";
@@ -129,14 +128,14 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         yield from [];
     }
 
-    // line 57
+    // line 56
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 58
+        // line 57
         yield "        Default content
         ";
         yield from [];
@@ -163,7 +162,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  140 => 58,  133 => 57,  122 => 4,  115 => 62,  113 => 61,  110 => 60,  108 => 57,  105 => 56,  103 => 55,  49 => 4,  44 => 1,);
+        return array (  139 => 57,  132 => 56,  121 => 4,  114 => 61,  112 => 60,  109 => 59,  107 => 56,  104 => 55,  102 => 54,  49 => 4,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -179,8 +178,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
     <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
     <script src=\"../assets/js/templates/master.js\"></script>
-    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>        
-    <script src=\"/assets/js/UserFunctions.js\"></script>
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>            
 </head>
 <body>
     <script>
