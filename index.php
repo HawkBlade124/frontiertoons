@@ -31,6 +31,10 @@ $routes = [
     '/logout' => 'logout.php',
     '/catalog' => 'catalog.php',
     '/profile-view' => 'profile-view.php',
+    '/register' => 'registration.php',
+    '/recommended' => 'recommended.php',
+    '/forgot-password' => 'forgot-password.php',
+    '/blog' => 'blog.php',
 ];
 
 $routeFile = $routes[$uri] ?? '404.php';

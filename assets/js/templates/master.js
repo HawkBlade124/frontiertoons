@@ -26,9 +26,3 @@ function sessionTimeOut(){
         startIdleTimer();
     }
 }
-
-function spinnerIcon(){
-    $('.changeDataBtn').on('click', function(){        
-
-    })
-}

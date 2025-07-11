@@ -44,30 +44,28 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
         <div id=\"siteLogo\"><a href=\"/\">FrontierToons</a></div>
         <nav id=\"navigation\">
             <ul id=\"navList\">
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Adventures</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>                
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"https://blog.frontiertoons.com\">Blog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>                
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/blog\">Blog</a></li>
                 <li class=\"navListLI\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
             </ul>
             <ul id=\"navListRight\">                
                 ";
-        // line 14
+        // line 12
         $context["loggedIn"] = ($context["logged_in"] ?? null);
         yield "                                
                 ";
-        // line 15
+        // line 13
         if ((($context["loggedIn"] ?? null) == true)) {
-            // line 16
+            // line 14
             yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\"><i class=\"fa-light fa-circle-user\"></i>Your Profile</a></li>
                     ";
         } else {
-            // line 18
+            // line 16
             yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login/Register</a></li>
                 ";
         }
-        // line 20
+        // line 18
         yield "                <li class=\"navLinkRight\"></li>
             </ul>
         </nav>
@@ -97,7 +95,7 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  71 => 20,  67 => 18,  63 => 16,  61 => 15,  57 => 14,  42 => 1,);
+        return array (  69 => 18,  65 => 16,  61 => 14,  59 => 13,  55 => 12,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -107,11 +105,9 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
         <div id=\"siteLogo\"><a href=\"/\">FrontierToons</a></div>
         <nav id=\"navigation\">
             <ul id=\"navList\">
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Adventures</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>                
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"https://blog.frontiertoons.com\">Blog</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>                
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>
+                <li class=\"navListLI\"><a class=\"navLink\" href=\"/blog\">Blog</a></li>
                 <li class=\"navListLI\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
             </ul>
             <ul id=\"navListRight\">                

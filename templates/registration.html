@@ -1,0 +1,44 @@
+{% extends 'base.index.html' %}
+{% block title %}Begin your adventure{% endblock %}
+{% block content %}
+        {% if error == 'invalid' %}
+        <div class="alert alert-danger">
+            Invalid username or password.
+        </div>
+        {% endif %}
+<div class="formWrapper">
+    <div class="formRight">
+        <form class="registrationForm" method="POST" action="/includes/auth-handler.php">
+            <div class="registerTop">
+                <input-group>
+                    <label for="username">First Name</label>
+                    <input type="text" name="firstName" required> 
+                </input-group>
+                <input-group>
+                    <label for="username">Last Name</label>
+                    <input type="text" name="lastName" required>
+                </input-group>
+            </div>
+            <input-group>
+                <label for="email">email</label>
+                <input type="email" name="email" required>    
+            </input-group>
+            <input-group>
+                <label for="username">Username</label>
+                <input type="text" name="username" required>    
+            </input-group>
+            <input-group>
+                <label for="password">Password</label>
+                <input type="password" name="password" required>    
+            </input-group>
+            
+            <input-group>
+                <label for="birthday">Birthday</label>
+                <input type="text" name="birthday" required>    
+            </input-group>
+            <button class="submitBtn" name="register">Register</button>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        </form>
+    </div>
+</div>
+{% endblock %}

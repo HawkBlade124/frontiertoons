@@ -3,7 +3,6 @@ global $twig;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
-session_start();
 
 if (!isset($twig)) {
     $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/templates');

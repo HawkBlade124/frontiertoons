@@ -20,17 +20,24 @@ p{
 	color:#fff;
 }
 body{
-  background:#013A40;
+  background:#0F1627;
   color:#fff;
 }
 header, #headerWrapper, #navList, img{
 	width:100%;	
 }
 header{
-	background:#2651A6;
+	background:#5C4639;
 	padding:13px;
 	box-sizing: border-box;		
 	margin-bottom:15px;	
+}
+input{
+	height: 25px;
+	margin-top:5px;
+	border-radius: 5px;
+	border: none;
+	width:100%;
 }
 #headerWrapper{
 	display:grid;
@@ -57,15 +64,15 @@ header{
 	padding-left:0;
 }
 .navLinkBtn{
-		background-color:#025951;
+		background-color:#6F5749;
 	cursor: pointer;
 	padding:10px 20px;
 	border-radius: 20px;
 	color:#fff;
-	border:1px solid #039184
+	border:1px solid #EFDBC0;
 }
 .navLinkBtn:hover{
-	background:#039184;
+	background:#EFDBC0;
 }
 #navigation {
 	display:flex;	
@@ -77,31 +84,55 @@ header{
 	border-radius:10px;
 }
 .navLink:hover{
-	color:#039184;
+	color:#EFDBC0;
 }
 .formWrapper, .formLeft, .formRight, input-group {
 	display:flex;
 }
 .formLeft, .formRight{
 	flex-direction: column;		
-	font-size:26px;	
+	font-size:26px;
+	width:100%;
+}
+.formLeft{
+	max-width:350px;
 }
 .formWrapper{
-	justify-content: center;
-	gap:25px;
+	flex-direction: column;
+	align-items: center;
+	max-width: 950px;
+	margin:0 auto;	
+	gap: 35px;
+}
+.loginForm .submitBtn{
+		background-color:#6F5749;
+	cursor: pointer;
+	padding:10px 20px;
+	border-radius: 20px;
+	color:#fff;
+  border:none;
+}
+.formWrapper h2{
+	font-size: 35px;	
 }
 input-group{
-	display:flex;
 	flex-direction: column;
 	margin-bottom:15px;
 	color:#fff;
+}
+.loginForm{
+	margin-top:10px;
+	font-size:16px;	
+}
+p.formText{
+	font-size: 17px;	
 }
 .profile{
 	display:flex;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
-	background:#001e21;
+	background:#44678B;
 	padding:65px 15px;
 	max-width: 1600px;
 	margin:0 auto;
@@ -136,7 +167,7 @@ input-group{
 .profileHeadRight a, .btn-primary{
 	display:block;
 	padding:10px 20px;
-	background:#025951;
+	background:#5C4639;
   color:#fff;
 	border-radius: 35px;
 	font-weight:300;
@@ -148,10 +179,10 @@ input-group{
 	border:none;
 	text-transform: uppercase;
 	padding:6px 15px;
-	color:#013a40
+	color:#0F1627;
 }
 .btn-primary:hover{
-	background:#379ef7;
+	background:#EFDBC0;
 }
 .profileWrapper {
   display:flex;
@@ -160,12 +191,12 @@ input-group{
 	width:100%;
   margin:0 auto;
   font-size:16px;
-	background:#0476D9;		
+	background:#A8BFD7;		
 }
 .profileSidebar{
   display: flex;
   line-height:1.9;
-	background:#025951;	
+	background:#5C4639;	
 }
 .profileSidebar div{
 	padding:10px 20px;
@@ -174,12 +205,12 @@ input-group{
 	cursor:pointer;
 }
 .profileSidebar div:hover{
-	background-color:#039184;
-	color:#fff;
+	background-color:#EFDBC0;
+	color:#0F1627;
 }
 .profileSidebar div.active{
-	color:#fff;
-	border-radius: 10px 0 0 0;
+	background-color:#EFDBC0;
+	color:#0F1627;
 }
 .resultsSection{
   display:flex;
@@ -285,4 +316,12 @@ input-group{
 }
 #viewAsGuestLink:hover{
 	border-bottom:1px solid #fff;
+}
+.formBottom {
+  display: flex;
+  align-items: center;  
+  justify-content:space-between;
+}
+.forgotPassword{
+  font-size:14px;
 }

@@ -56,18 +56,11 @@ $(function(){
     window.uploadImage = uploadImage;
 
 $('.profileSidebarBtn').click(function () {
-    // Remove 'active' from all sidebar buttons
-    $('.profileSidebarBtn.active').removeClass('active');
-    $(this).addClass('active');
-
-    // Get the data-field of the clicked button
-    var field = $(this).data('field');
-
-    // Remove 'active' from all result sections
-    $('.resultsSection .active').removeClass('active');
-
-    // Add 'active' to the matching result section
-    $('.resultsSection [data="' + field + '"]').addClass('active');
+    if($(this).has('active')){
+        $('.profileSidebarBtn').find('active').removeClass('active');
+        $('.profileSidebarBtn').addClass('active');
+        $('.profileResults').data('profileTab').addClass('active');
+    }
 });
 
 
@@ -113,26 +106,24 @@ function changeData(button) {
     });
 }
 function deleteAccount() {
-    if (confirm("Are you sure you want to delete your account?")) {
-        const username = "<?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?>";
-        const csrfToken = "<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>";
-        fetch('/includes/auth-handler.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `action=deleteUser&username=${encodeURIComponent(username)}&csrf_token=${encodeURIComponent(csrfToken)}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.success);
-                window.location.href = '/login'; // Redirect after deletion
-            } else {
-                alert(data.error || 'An error occurred');
+    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+        $.ajax({
+            url: '../../includes/UserFunctions.php',
+            type: 'POST',
+            data: {
+                action: 'deleteAccount'
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    alert('Account deleted successfully.');
+                    window.location.href = '/logout.php'; // Redirect to logout or home page
+                } else {
+                    alert('Error deleting account: ' + response.message);
+                }
+            },
+            error: function() {
+                alert('Error processing request.');
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred');
         });
     }
 }
