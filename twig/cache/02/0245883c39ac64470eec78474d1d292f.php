@@ -53,19 +53,22 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
                 ";
         // line 12
         $context["loggedIn"] = ($context["logged_in"] ?? null);
-        yield "                                
-                ";
         // line 13
+        yield "                ";
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["users"] ?? null), "username", [], "any", false, false, false, 13), "html", null, true);
+        yield "
+                ";
+        // line 14
         if ((($context["loggedIn"] ?? null) == true)) {
-            // line 14
-            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\"><i class=\"fa-light fa-circle-user\"></i>Your Profile</a></li>
+            // line 15
+            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-light fa-circle-user\"></i>Your Profile</a></li>
                     ";
         } else {
-            // line 16
+            // line 17
             yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login/Register</a></li>
                 ";
         }
-        // line 18
+        // line 19
         yield "                <li class=\"navLinkRight\"></li>
             </ul>
         </nav>
@@ -95,7 +98,7 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  69 => 18,  65 => 16,  61 => 14,  59 => 13,  55 => 12,  42 => 1,);
+        return array (  72 => 19,  68 => 17,  64 => 15,  62 => 14,  57 => 13,  55 => 12,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -111,9 +114,10 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
                 <li class=\"navListLI\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
             </ul>
             <ul id=\"navListRight\">                
-                {% set loggedIn = logged_in %}                                
+                {% set loggedIn = logged_in %}
+                {{users.username}}
                 {% if loggedIn == true %}
-                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\"><i class=\"fa-light fa-circle-user\"></i>Your Profile</a></li>
+                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-light fa-circle-user\"></i>Your Profile</a></li>
                     {% else %}
                     <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login/Register</a></li>
                 {% endif %}

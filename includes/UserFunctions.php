@@ -3,6 +3,7 @@ require_once __DIR__ . '/config.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
     // --- 1. Handle TEXT FIELD UPDATES (nickname, email, website, bio) ---
 if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
     $userID = filter_var($_POST['userID'], FILTER_VALIDATE_INT);
@@ -151,8 +152,13 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
         }
         exit;
     }
-
-    // --- Fallback: No valid POST action ---
+    if (isset($_POST['action']) && $_POST['action'] === 'deleteAccount') {
+        $pdo = getDbConnection();
+        
+        $stmt = $pdo->prepare('DELETE FROM users WHERE userID = :userID');
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->execute();
+    }
     echo json_encode(['status' => 'error', 'message' => 'No valid action received']);
     exit;
 }

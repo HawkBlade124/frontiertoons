@@ -53,10 +53,12 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\" integrity=\"sha256-9zljDKpE/mQxmaR4V2cGVaQ7arF3CcXxarvgr7Sj8Uc=\" crossorigin=\"anonymous\"></script>
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
-    <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
     <script src=\"../assets/js/templates/master.js\"></script>
-    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>            
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
+    <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
+    <script src=\"/assets/js/functions/popovers.js\"></script>   
 </head>
+<div id=\"popup\" style=\"display:none\"></div>
 <body>
     <script>
         window.addEventListener('load', function () {
@@ -98,20 +100,22 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
 </div>
 
     ";
-        // line 54
-        yield from $this->load("header.html", 54)->unwrap()->yield($context);
-        // line 55
+        // line 56
+        yield from $this->load("header.html", 56)->unwrap()->yield($context);
+        // line 57
         yield "    
        ";
-        // line 56
+        // line 58
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 59
+        // line 61
         yield "
     ";
-        // line 60
-        yield from $this->load("footer.html", 60)->unwrap()->yield($context);
-        // line 61
-        yield "</body>
+        // line 62
+        yield from $this->load("footer.html", 62)->unwrap()->yield($context);
+        // line 63
+        yield "    <script src=\"https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js\"></script>
+
+</body>
 </html>
 ";
         yield from [];
@@ -128,14 +132,14 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         yield from [];
     }
 
-    // line 56
+    // line 58
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 57
+        // line 59
         yield "        Default content
         ";
         yield from [];
@@ -162,7 +166,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  139 => 57,  132 => 56,  121 => 4,  114 => 61,  112 => 60,  109 => 59,  107 => 56,  104 => 55,  102 => 54,  49 => 4,  44 => 1,);
+        return array (  143 => 59,  136 => 58,  125 => 4,  116 => 63,  114 => 62,  111 => 61,  109 => 58,  106 => 57,  104 => 56,  49 => 4,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -176,10 +180,12 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\" integrity=\"sha256-9zljDKpE/mQxmaR4V2cGVaQ7arF3CcXxarvgr7Sj8Uc=\" crossorigin=\"anonymous\"></script>
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
-    <link rel=\"stylesheet\" href=\"../assets/css/fonts.css\">
     <script src=\"../assets/js/templates/master.js\"></script>
-    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>            
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
+    <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
+    <script src=\"/assets/js/functions/popovers.js\"></script>   
 </head>
+<div id=\"popup\" style=\"display:none\"></div>
 <body>
     <script>
         window.addEventListener('load', function () {
@@ -227,6 +233,8 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         {% endblock %}
 
     {% include 'footer.html' %}
+    <script src=\"https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js\"></script>
+
 </body>
 </html>
 ", "base.index.html", "/var/www/frontiertoons/templates/base.index.html");

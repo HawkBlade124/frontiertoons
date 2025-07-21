@@ -13,17 +13,16 @@
         <form class="loginForm" method="POST" action="/includes/auth-handler.php">
             <input-group>
                 <label for="username">Username</label>
-                <input type="text" name="username">
+                <input id="username" type="text" name="username">
             </input-group>
             <input-group>
                 <label for="password">Password</label>
-                <input type="password" name="password">
+                <input id="password" type="password" name="password">
             </input-group>
             <div class="formBottom">
                 <button class="submitBtn" name="login">Login</button>
                 <p class="forgotPassword"><a href="/forgot-password">Forgot Password?</a></p>
             </div>
-            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         </form>        
     </div>
     <div class="formText">

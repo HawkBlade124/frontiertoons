@@ -1,8 +1,9 @@
 {% extends 'base.index.html' %}
 {% block title %}Your Profile Home{% endblock %}
 {% block content %}
-<script src="/assets/js/functions/UserFunctions.js"></script>
-
+<script>
+    const currentUsername = "{{users.username}}";
+</script>
 <div class="profile">
     <div class="profileHeader">
         <div class="profileHeadLeft">
@@ -26,17 +27,18 @@
 
     <div class="profileWrapper">
         <div class="profileSidebar">
-            <div class="profileSidebarBtn active">Edit Profile</div>
-            <div class="profileSidebarBtn">Subscriptions</div>
-            <div class="profileSidebarBtn">Settings</div>
-            <div class="profileSidebarBtn">Security</div>
+            <div class="profileSidebarBtn active" data-target="edit">Edit Profile</div>
+            <div class="profileSidebarBtn" data-target="subscr">Subscriptions</div>            
+            <div class="profileSidebarBtn" data-target="security">Uploads</div>
+            <div class="profileSidebarBtn" data-target="settings">Settings</div>
+            <div class="profileSidebarBtn" data-target="security">Security</div>            
         </div>
         <div class="resultsSection">
                 <div class="profileInnerHead">     
                     <div id="profileUpdateMsg"></div>
                     Last Updated: {{users.lastMod}}
                 </div>
-            <div class="profileResults edit active" data="profileTab">                
+            <div class="profileResults active edit">
                 <div class="inputGroup">
                     <label for="email">Email:</label>
                     <div class="inputIcons">
@@ -66,23 +68,20 @@
                     </div>
                 </div>
             </div>
-            <div class="profileResults subscr" data="profileTab">
+            <div class="profileResults subscr">
                 <p>This is to build out the subscriptions section</p>
             </div> 
-            <div class="profileResults settings" data="profileTab">
+            <div class="profileResults settings">
                 <p>This is to build out the settings section</p>
             </div>
-            <div class="profileResults security" data="profileTab">
+            <div class="profileResults security">
                 <div class="deleteAccount">
                     If you want to stop adventuring all together, make sure you have all your affairs in order before you stop.
-                    <button type="submit" class="danger" onclick="deleteAccount()">Delete Your Account</button>
+                    <button type="submit" class="danger" onclick="deleteAccount()">Delete Your Account</button>                    
             </div>
 
             </div> 
         </div>
     </div>
 </div>
-<!-- <pre>
-{{dump()}}
-</pre> -->
 {% endblock %}

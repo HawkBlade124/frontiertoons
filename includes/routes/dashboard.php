@@ -18,7 +18,7 @@ if (!$userID) {
 
 $pdo = getDbConnection();
 $query = "
-    SELECT users.userID, users.firstName, users.email, users.niceName, 
+    SELECT users.userID, users.firstName, users.email, users.niceName, users.username,            
            profile.avatar, profile.bio, profile.gender, profile.ratingPref, 
            profile.subscriptions, profile.website, profile.lastMod
     FROM users 
@@ -49,4 +49,5 @@ echo $twig->render('dashboard.html', [
     'username'  => $username,
     'logged_in' => $loggedIn,
     'profileID' => $profileID,
+    'csrfToken' => $_SESSION['csrf_token']
 ]);
