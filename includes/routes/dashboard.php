@@ -7,8 +7,8 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 
-$userID = $_SESSION['userID'] ?? null;
-$username = $_SESSION['username'] ?? null;
+$userID = $_SESSION['UserID'] ?? null;
+$username = $_SESSION['Username'] ?? null;
 $loggedIn = $_SESSION['logged_in'] ?? false;
 $profileID = $userID;
 
@@ -18,15 +18,15 @@ if (!$userID) {
 
 $pdo = getDbConnection();
 $query = "
-    SELECT users.userID, users.firstName, users.email, users.niceName, users.username,            
-           profile.avatar, profile.bio, profile.gender, profile.ratingPref, 
-           profile.subscriptions, profile.website, profile.lastMod
+ SELECT users.UserID, users.FirstName, users.Email, users.NiceName, users.Username,            
+           profile.Avatar, profile.Bio, profile.Gender, profile.RatingPref, 
+           profile.Subscriptions, profile.Website, profile.LastMod, profile.CoverPhoto
     FROM users 
-    LEFT JOIN profile ON users.userID = profile.profileID 
-    WHERE users.userID = :userID
+    LEFT JOIN profile ON users.UserID = profile.ProfileID 
+    WHERE users.UserID = :user_id
 ";
 $stmt = $pdo->prepare($query);
-$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+$stmt->bindParam(':user_id', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

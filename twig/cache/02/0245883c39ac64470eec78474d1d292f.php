@@ -61,11 +61,11 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
         // line 14
         if ((($context["loggedIn"] ?? null) == true)) {
             // line 15
-            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-light fa-circle-user\"></i>Your Profile</a></li>
+            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-slab fa-regular fa-circle-user\"></i> Your Profile</a></li>
                     ";
         } else {
             // line 17
-            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login/Register</a></li>
+            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register</a></li>
                 ";
         }
         // line 19
@@ -117,9 +117,9 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
                 {% set loggedIn = logged_in %}
                 {{users.username}}
                 {% if loggedIn == true %}
-                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-light fa-circle-user\"></i>Your Profile</a></li>
+                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-slab fa-regular fa-circle-user\"></i> Your Profile</a></li>
                     {% else %}
-                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-light fa-user-cowboy\"></i> Login/Register</a></li>
+                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register</a></li>
                 {% endif %}
                 <li class=\"navLinkRight\"></li>
             </ul>

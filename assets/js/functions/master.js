@@ -26,3 +26,17 @@ function sessionTimeOut(){
         startIdleTimer();
     }
 }
+$(function(){
+    
+    $('.profileSidebarBtn').click(function () {
+        // Set active class on the clicked button
+        $('.profileSidebarBtn').removeClass('active');
+        $(this).addClass('active');
+
+        // Show corresponding profile result
+        var show = $(this).data('target');
+
+        $('.profileResults').removeClass('active');
+        $('.profileResults.' + show).addClass('active');
+    });
+})

@@ -7,20 +7,26 @@
         </div>
         {% endif %}
 <div class="formWrapper">
-    <h2>Welcome Back Adventurer!</h2>
+    <h2>Welcome Back, Adventurer!</h2>
     <p class="formText">Ready to continue your journey? Log in to your account.</p>
     <div class="formLeft">
         <form class="loginForm" method="POST" action="/includes/auth-handler.php">
             <input-group>
-                <label for="username">Username</label>
-                <input id="username" type="text" name="username">
+                <div class="iconInputs">
+                    <i class="fa-slab fa-regular fa-user"></i>
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="Username">
+                </div>
             </input-group>
             <input-group>
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password">
+                <div class="iconInputs">
+                    <i class="fa-slab fa-regular fa-lock"></i>
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="Password">
+                </div>
             </input-group>
             <div class="formBottom">
-                <button class="submitBtn" name="login">Login</button>
+                <button class="submitBtn" name="login">Login <i class="fa-slab fa-regular fa-arrow-right-to-bracket"></i></button>
                 <p class="forgotPassword"><a href="/forgot-password">Forgot Password?</a></p>
             </div>
         </form>        

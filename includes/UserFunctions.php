@@ -6,12 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // --- 1. Handle TEXT FIELD UPDATES (nickname, email, website, bio) ---
 if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
-    $userID = filter_var($_POST['userID'], FILTER_VALIDATE_INT);
+    $userID = filter_var($_POST['user_id'], FILTER_VALIDATE_INT);
     $field = $_POST['field'];
     $value = trim($_POST['value']);
 
-    $allowedProfileFields = ['website', 'bio'];
-    $allowedUserFields = ['email', 'niceName'];
+    $allowedProfileFields = ['Website', 'Bio'];
+    $allowedUserFields = ['Email', 'NiceName'];
 
     if (!in_array($field, array_merge($allowedProfileFields, $allowedUserFields))) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid field']);
@@ -23,26 +23,26 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
 
         if (in_array($field, $allowedProfileFields)) {
             // Check if profile row exists
-            $check = $pdo->prepare("SELECT COUNT(*) FROM profile WHERE profileID = :id");
+            $check = $pdo->prepare("SELECT COUNT(*) FROM profile WHERE ProfileID = :id");
             $check->execute([':id' => $userID]);
             $exists = $check->fetchColumn();
             
         if (!$exists) {
-            $create = $pdo->prepare("INSERT INTO profile (profileID) VALUES (:id)");
+            $create = $pdo->prepare("INSERT INTO profile (ProfileID) VALUES (:id)");
             if (!$create->execute([':id' => $userID])) {
                 echo json_encode(['status' => 'error', 'message' => 'Failed to create profile']);
                 exit;
             }
         }
             // Update profile table with lastMod
-            $stmt = $pdo->prepare("UPDATE profile SET $field = :value, lastMod = NOW() WHERE profileID = :id");                   
+            $stmt = $pdo->prepare("UPDATE profile SET $field = :value, LastMod = NOW() WHERE ProfileID = :id");                   
             $stmt->bindParam(':value', $value);
             $stmt->bindParam(':id', $userID, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->rowCount();     
         } else {
             // Update users table
-            $stmt = $pdo->prepare("UPDATE users SET $field = :value WHERE userID = :id");
+            $stmt = $pdo->prepare("UPDATE users SET $field = :value WHERE UserID = :id");
             $stmt->bindParam(':value', $value);
             $stmt->bindParam(':id', $userID, PDO::PARAM_INT);
             $stmt->execute();
@@ -63,8 +63,8 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
 
 
     // --- 2. Handle AVATAR UPLOAD ---
-    if (isset($_POST['userID']) && isset($_FILES['avatar'])) {
-        $userID = filter_var($_POST['userID'], FILTER_VALIDATE_INT, [
+    if (isset($_POST['UserID']) && isset($_FILES['Avatar'])) {
+        $userID = filter_var($_POST['UserID'], FILTER_VALIDATE_INT, [
             'options' => ['min_range' => 1]
         ]);
         if ($userID === false) {
@@ -72,7 +72,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
             exit;
         }
 
-        $file = $_FILES['avatar'];
+        $file = $_FILES['Avatar'];
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         $maxSize = 5 * 1024 * 1024; // 5MB
 
@@ -118,7 +118,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
 
         try {
             $pdo = getDbConnection();
-            $query = "SELECT avatar FROM profile WHERE profileID = :profileID";
+            $query = "SELECT avatar FROM profile WHERE ProfileID = :profileID";
             $stmt = $pdo->prepare($query);
             $stmt->bindParam(':profileID', $userID, PDO::PARAM_INT);
             $stmt->execute();
@@ -138,7 +138,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
 
         try {
             $pdo = getDbConnection();
-            $stmt = $pdo->prepare("UPDATE profile SET avatar = :avatar, lastMod = NOW() WHERE profileID = :profileID");
+            $stmt = $pdo->prepare("UPDATE profile SET Avatar = :avatar, LastMod = NOW() WHERE ProfileID = :profileID");
             $stmt->bindParam(':avatar', $filename);
             $stmt->bindParam(':profileID', $userID, PDO::PARAM_INT);
             $stmt->execute();
@@ -155,7 +155,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
     if (isset($_POST['action']) && $_POST['action'] === 'deleteAccount') {
         $pdo = getDbConnection();
         
-        $stmt = $pdo->prepare('DELETE FROM users WHERE userID = :userID');
+        $stmt = $pdo->prepare('DELETE FROM users WHERE UserID = :userID');
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
         $stmt->execute();
     }

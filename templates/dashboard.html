@@ -2,25 +2,25 @@
 {% block title %}Your Profile Home{% endblock %}
 {% block content %}
 <script>
-    const currentUsername = "{{users.username}}";
+    const currentUsername = "{{users.Username}}";
 </script>
 <div class="profile">
     <div class="profileHeader">
         <div class="profileHeadLeft">
             <div id="profileAvatar" onclick="triggerFilePicker()">
                 <img id="dashboardAvatar" 
-                    src="/assets/images/user-profile-images/{{ users.userID|hash('user-images-v1') }}/{{ users.avatar|default('default-avatar.jpg') }}" 
+                    src="/assets/images/user-profile-images/{{ users.UserID|hash('user-images-v1') }}/{{ users.Avatar|default('default-avatar.jpg') }}" 
                     alt="User Avatar" 
-                    data-userid="{{ users.userID }}">
+                    data-userid="{{ users.UserID }}">
                 <span class="changeAvatar"><i class="fa-solid fa-pencil"></i></span>
                 <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadImage()" />
             </div>
             <div id="profileName">
-                <p>Welcome {{ users.firstName }}!</p>            
+                <p>Welcome {{ users.FirstName }}!</p>            
             </div>
         </div>    
         <div class="profileHeadRight">
-            <a id="viewAsGuestLink" href="/profile-view">Preview</a>
+            <a id="viewAsGuestLink" href="/profile-view/:NiceName">Preview</a>
             <a href="/logout">Sign Out</a>
         </div>
     </div>
@@ -29,45 +29,45 @@
         <div class="profileSidebar">
             <div class="profileSidebarBtn active" data-target="edit">Edit Profile</div>
             <div class="profileSidebarBtn" data-target="subscr">Subscriptions</div>            
-            <div class="profileSidebarBtn" data-target="security">Uploads</div>
+            <div class="profileSidebarBtn" data-target="uploads">Uploads</div>
             <div class="profileSidebarBtn" data-target="settings">Settings</div>
             <div class="profileSidebarBtn" data-target="security">Security</div>            
         </div>
         <div class="resultsSection">
                 <div class="profileInnerHead">     
                     <div id="profileUpdateMsg"></div>
-                    Last Updated: {{users.lastMod}}
+                    Last Updated: {{users.LastMod}}
                 </div>
-            <div class="profileResults active edit">
-                <div class="inputGroup">
-                    <label for="email">Email:</label>
-                    <div class="inputIcons">
-                        <input type="email" name="email" data-userID="{{users.userID}}" value="{{users.email}}">
-                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="email" >Update</button>
+                <div class="profileResults active edit">
+                    <div class="inputGroup">
+                        <label for="Email">Email:</label>
+                        <div class="inputIcons">
+                            <input type="email" name="Email" data-userID="{{users.UserID}}" value="{{users.Email}}">
+                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Email">Update</button>
+                        </div>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="Website">Website:</label>
+                        <div class="inputIcons">
+                            <input type="text" name="Website" data-userID="{{users.UserID}}" value="{{users.Website}}">
+                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Website">Update</button>
+                        </div>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="NiceName">Nickname<div class="helpIcon">?</div>:</label>
+                        <div class="inputIcons">
+                            <input type="text" name="NiceName" data-userID="{{users.UserID}}" value="{{users.NiceName}}">
+                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="NiceName">Update</button>
+                        </div>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="Bio">Bio:</label>
+                        <div class="inputIcons">
+                            <textarea name="Bio" rows="15" cols="100" data-userID="{{users.UserID}}">{{users.Bio}}</textarea>
+                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Bio">Update</button>
+                        </div>
                     </div>
                 </div>
-                <div class="inputGroup">
-                    <label for="website">Website:</label>
-                    <div class="inputIcons">                        
-                        <input type="text" name="website" data-userID="{{users.userID}}" value="{{users.website}}">
-                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="website">Update</button>
-                    </div>                        
-                </div>                
-                <div class="inputGroup"> 
-                    <label for="niceName">Nickname:</label>
-                    <div class="inputIcons">
-                        <input type="text" name="niceName" data-userID="{{users.userID}}" value="{{users.niceName}}">
-                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="niceName">Update</button>          
-                    </div>                        
-                </div>
-                <div class="inputGroup">    
-                    <label for="bio">Bio:</label>                       
-                    <div class="inputIcons">
-                        <textarea name="bio" rows="15" cols="100" data-userID="{{users.userID}}">{{users.bio}}</textarea>
-                        <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="bio" >Update</button>
-                    </div>
-                </div>
-            </div>
             <div class="profileResults subscr">
                 <p>This is to build out the subscriptions section</p>
             </div> 
@@ -75,13 +75,19 @@
                 <p>This is to build out the settings section</p>
             </div>
             <div class="profileResults security">
+                <div class="passwordChange">
+                    <label for="password">Change Password</label>
+                    <div class="inputIcons">
+                        <input type="text" name="password" data-userID="{{users.UserID}}">
+                    </div>
+                </div>
                 <div class="deleteAccount">
                     If you want to stop adventuring all together, make sure you have all your affairs in order before you stop.
-                    <button type="submit" class="danger" onclick="deleteAccount()">Delete Your Account</button>                    
-            </div>
-
+                    <button type="submit" class="danger" onclick="deleteAccount()"><i class="fa-slab fa-regular fa-skull-crossbones"></i> Delete Your Account</button>                    
+                </div>
             </div> 
         </div>
     </div>
 </div>
+
 {% endblock %}

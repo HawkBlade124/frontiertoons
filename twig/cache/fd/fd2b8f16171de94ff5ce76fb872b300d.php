@@ -53,8 +53,8 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\" integrity=\"sha256-9zljDKpE/mQxmaR4V2cGVaQ7arF3CcXxarvgr7Sj8Uc=\" crossorigin=\"anonymous\"></script>
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
-    <script src=\"../assets/js/templates/master.js\"></script>
-    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
+    <link rel=\"stylesheet\" href=\"../assets/css/fontawesome/css/all.css\">
+    <script src=\"/assets/js/functions/master.js\"></script>    
     <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
     <script src=\"/assets/js/functions/popovers.js\"></script>   
 </head>
@@ -180,8 +180,8 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\" integrity=\"sha256-9zljDKpE/mQxmaR4V2cGVaQ7arF3CcXxarvgr7Sj8Uc=\" crossorigin=\"anonymous\"></script>
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
-    <script src=\"../assets/js/templates/master.js\"></script>
-    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
+    <link rel=\"stylesheet\" href=\"../assets/css/fontawesome/css/all.css\">
+    <script src=\"/assets/js/functions/master.js\"></script>    
     <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
     <script src=\"/assets/js/functions/popovers.js\"></script>   
 </head>

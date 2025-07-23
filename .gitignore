@@ -1,3 +1,4 @@
 includes/config.php
 includes/auth-handler.php
 twig/cache/
+/assets/css/fontawesome
