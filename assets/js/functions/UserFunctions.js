@@ -1,5 +1,4 @@
 $(function() {
-    // Pass userID from PHP to JavaScript
     var userID = $('#dashboardAvatar').attr('data-userID');
 
     function triggerFilePicker() {
@@ -22,7 +21,7 @@ $(function() {
 
         const formData = new FormData();
         formData.append('Avatar', file);
-        formData.append('UserID', userID); // Updated to PascalCase
+        formData.append('UserID', userID);
 
         $.ajax({
             url: '/includes/UserFunctions.php',
@@ -171,11 +170,53 @@ $(function() {
             },
             error: function(xhr, status, error) {
                 $('#profileUpdateMsg').html('Error updating profile.');
-                console.error('AJAX Error:', status, error);
+                console.error('AJAX Error:', xhr, status, error);
             }
         });
     }
+   function changeSocialMedia(button) {
+        const $btn = $(button);
+        const field = $btn.data('field');
+        const $container = $btn.closest('.inputGroup');
+        const $input = $container.find(`input[name="${field}"], textarea[name="${field}"]`);
 
+        const value = $input.val();
+        const userID = $input.data('userid');
+
+        if (!field || !value || !userID) {
+            console.error('Missing required data');
+            return;
+        }
+
+        $.ajax({
+            url: '/includes/UserFunctions.php',
+            type: 'POST',
+            data: {
+                action: 'updateSocialMedia',
+                field: field,
+                value: value,
+                user_id: userID 
+            },
+            success: function(response) {           
+                if (response.status === 'success') {
+                    $('#profileUpdateMsg').html('Updated successfully! Page will refresh in 5 seconds.');
+                    $btn.html('<i class="fa-solid fa-spinner fa-spin-pulse"></i>');                
+                    setTimeout(() => {                    
+                        $btn.html('Saved!');
+                        setTimeout(() => {
+                            window.location.href = '/dashboard';
+                        }, 2500);
+                    }, 2000);
+                } else {
+                    $('#profileUpdateMsg').html('Error: ' + (response.message || 'Failed to update profile.'));
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#profileUpdateMsg').html('Error updating profile.');
+                console.error('AJAX Error:', xhr, status, error);
+            }
+        });
+    }
     function deleteAccount() {
         const csrfToken = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('=')[1];
 
@@ -201,12 +242,13 @@ $(function() {
                 },
                 error: function(xhr, status, error) {
                     alert('Error processing request: ' + error);
-                    console.log(xhr.responseText);
+                    console.log(xhr.responseText, status);
                 }
             });
         }
     }
 
     window.changeData = changeData;
+    window.changeSocialMedia = changeSocialMedia;
     window.deleteAccount = deleteAccount;
 });

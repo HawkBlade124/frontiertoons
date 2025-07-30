@@ -60,6 +60,59 @@ if (isset($_POST['action']) && $_POST['action'] === 'updateField') {
     }
     exit;
 }
+if (isset($_POST['action']) && $_POST['action'] === 'updateSocialMedia') {
+    $userID = filter_var($_POST['user_id'], FILTER_VALIDATE_INT);
+    $field = $_POST['field'];
+    $value = trim($_POST['value']);
+
+    $allowedSocialFields = ['Platform'];
+
+    if (!in_array($field, array_merge($allowedSocialFields))) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid field']);
+        exit;
+    }
+
+    try {
+        $pdo = getDbConnection();
+
+        if (in_array($field, $allowedSocialFields)) {
+            // Check if profile row exists
+            $check = $pdo->prepare("SELECT COUNT(*) FROM usersocials WHERE SocialMediaID = :id");
+            $check->execute([':id' => $userID]);
+            $exists = $check->fetchColumn();
+            
+        if (!$exists) {
+            $create = $pdo->prepare("INSERT INTO usersocials (UserID) VALUES (:userID)");
+            if (!$create->execute([':userID' => $userID])) {
+                echo json_encode(['status' => 'error', 'message' => 'Failed to update']);
+                exit;
+            }
+        } 
+        $stmt = $pdo->prepare("UPDATE usersocials SET $field = :value, LastMod = NOW() WHERE UserID = :id");
+        $stmt->bindParam(':value', $value);
+        $stmt->bindParam(':id', $userID, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->rowCount();    
+        } else {
+            // Update users table
+            $stmt = $pdo->prepare("UPDATE users SET $field = :value WHERE UserID = :id");
+            $stmt->bindParam(':value', $value);
+            $stmt->bindParam(':id', $userID, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+
+        $rows = $stmt->rowCount();
+        if ($rows > 0) {
+            echo json_encode(['status' => 'success', 'message' => ucfirst($field) . ' updated!']);
+        } else {
+            echo json_encode(['status' => 'warning', 'message' => 'No change made.']);
+        }
+    } catch (PDOException $e) {
+        error_log("Update error: " . $e->getMessage());
+        echo json_encode(['status' => 'error', 'message' => 'Database error']);
+    }
+    exit;
+}
 
 
     // --- 2. Handle AVATAR UPLOAD ---

@@ -18,9 +18,9 @@ if (!isset($twig)) {
 
 $pdo = getDbConnection();
 $query = "
-    SELECT users.userID, users.firstName, users.email, users.niceName, users.username            
+    SELECT users.UserID, users.FirstName, users.Email, users.NiceName, users.Username            
     FROM users 
-    LEFT JOIN profile ON users.userID = profile.profileID 
+    LEFT JOIN series ON users.UserID = series.Author 
     WHERE users.userID = :userID
 ";
 $stmt = $pdo->prepare($query);

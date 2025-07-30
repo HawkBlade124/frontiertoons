@@ -1,23 +1,72 @@
 <header>
     <div id="headerWrapper">
-        <div id="siteLogo"><a href="/">FrontierToons</a></div>
+
+        <div id="siteLogo">
+            <a :href="homeUrl">FrontierToons</a>
+        </div>
+ 
         <nav id="navigation">
-            <ul id="navList">
-                <li class="navListLI"><a class="navLink" href="/catalog">Comic Catalog</a></li>                
-                <li class="navListLI"><a class="navLink" href="/register">Become An Author</a></li>
-                <li class="navListLI"><a class="navLink" href="/blog">Blog</a></li>
-                <li class="navListLI"><i class="fa-light fa-magnifying-glass"></i> Search</li>
-            </ul>
+            <div id="nav">
+                <ul id="navList">
+                    <li class="navListLI" :class="{ active: current === 'catalog' }">
+                        <a class="navLink" href="/catalog" @click="current = 'catalog'">Comic Catalog</a>
+                    </li>
+                    <li class="navListLI" :class="{ active: current === 'register' }">
+                        <a class="navLink" href="/register" @click="current = 'register'">Become An Author</a>
+                    </li>
+                    <li class="navListLI" :class="{ active: current === 'about' }">
+                        <a class="navLink" href="/about" @click="current = 'about'">About Us</a>
+                    </li>
+                    <li class="navListLI" :class="{ active: current === 'contact' }">
+                        <a class="navLink" href="/contact" @click="current = 'contact'">Contact Us</a>
+                    </li>
+                    <li class="navListLI" :class="{ active: current === 'blog' }">
+                        <a class="navLink" href="/blog" @click="current = 'blog'">Blog</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
             <ul id="navListRight">                
-                {% set loggedIn = logged_in %}
-                {{users.username}}
-                {% if loggedIn == true %}
-                    <li class="navLinkRight"><a class="navLinkBtn" href="/dashboard" data-="loggedIn"><i class="fa-slab fa-regular fa-circle-user"></i> Your Profile</a></li>
+                {% set loggedIn = logged_in %}                
+                {% if loggedIn == true %}                   
+                    <li class="navLinkRight" :class="{ active: current === 'dashboard' }">
+                        <a class="navLinkBtn" href="/dashboard" @click="current = 'dashboard'">
+                            <i class="fa-slab fa-regular fa-circle-user"></i>  {{session.Username}}
+                        </a>
+                    </li>
                     {% else %}
-                    <li class="navLinkRight"><a class="navLinkBtn" href="/login"><i class="fa-jelly fa-regular fa-arrow-right-to-bracket"></i> Login/Register</a></li>
+                    <li class="navLinkRight" :class="{ active: current === 'login' }">
+                        <a class="navLinkBtn" href="/login" @click="current = 'login'" >
+                            <i class="fa-jelly fa-regular fa-arrow-right-to-bracket"></i> Login/Register
+                        </a>
+                    </li>
                 {% endif %}
                 <li class="navLinkRight"></li>
             </ul>
         </nav>
+       <div class="searchWrapper">
+            <form action="/catalog" method="POST">                
+                <input type="text">
+            </form>
+            <button class="search" type="submit"><i class="fa-slab fa-regular fa-magnifying-glass"></i></button>            
+        </div>
     </div>
 </header>
+
+
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                current: '{{ app.request.attributes.get("_route") ?? "" }}',
+                logoText: 'FrontierToons',
+                homeUrl: '/'
+            }
+        }
+    }).mount('#headerWrapper');
+
+</script>

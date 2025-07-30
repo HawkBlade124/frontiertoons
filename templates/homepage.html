@@ -9,7 +9,21 @@
         </div>
         <div class="sectionWrap">
             <h2>Author of The Week</h2>
-            
+            <a href="/profile-view/test2"  >test2</a>
+            <div id="userTest">
+                                    
+                {% for User in users %}
+                {% endfor %}
+            </div>
+            <script>
+    createApp({
+        data() {
+            return {
+                userName: '{{ users.Username }}'
+            };
+        }
+    }).mount('#userTest');
+</script>
         </div>
         <div class="sectionWrap">
             <h2>Get Noticed!</h2>

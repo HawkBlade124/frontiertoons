@@ -1,5 +1,10 @@
 {% extends 'base.index.html' %}
-{% block title %}Previewing User{% endblock %}
+{% block title %}{{users.Username}}'s Profile{% endblock %}
 {% block content %}
- 
+<div id="profileWrapper">
+    <div id="profileCoverPhoto">
+        <img src="/assets/images/user-cover-photo/{{users.CoverPhoto}}" alt="">
+    </div>
+</div>
+    {{users.Bio}}
 {% endblock %}

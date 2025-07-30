@@ -14,7 +14,21 @@ $twig = new \Twig\Environment($loader, [
     'debug' => true,
 ]);
 
-$basePath = ''; // Update to '/myapp' if needed
+// Gather session info
+$session = [
+    'UserID'   => $_SESSION['UserID'] ?? null,
+    'Username' => $_SESSION['Username'] ?? null,
+    'logged_in'  => $_SESSION['logged_in'] ?? false,
+    'csrfToken'  => $_SESSION['csrf_token'] ?? null
+];
+
+// Register these as Twig globals
+foreach ($session as $key => $value) {
+    $twig->addGlobal($key, $value);
+}
+
+
+$basePath = '';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if ($basePath && strpos($uri, $basePath) === 0) {
@@ -35,8 +49,20 @@ $routes = [
     '/recommended' => 'recommended.php',
     '/forgot-password' => 'forgot-password.php',
     '/blog' => 'blog.php',
+    '/profile-view' => 'profile-view.php'
 ];
 
-$routeFile = $routes[$uri] ?? '404.php';
+$routeFile = $routes[$uri] ?? null;
+
+// Handle dynamic profile-view/{niceName}
+if (!$routeFile && preg_match('#^/profile-view/([^/]+)$#', $uri, $matches)) {
+    $_GET['Username'] = $matches[1]; // Pass username into PHP
+    $routeFile = 'profile-view.php';
+}
+
+// Fallback to 404
+if (!$routeFile) {
+    $routeFile = '404.php';
+}
 
 require_once __DIR__ . "/includes/routes/$routeFile";

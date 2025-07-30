@@ -60,62 +60,21 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
 </head>
 <div id=\"popup\" style=\"display:none\"></div>
 <body>
-    <script>
-        window.addEventListener('load', function () {
-            document.getElementById('preloader').style.display = 'none';
-        });
-    </script>
-    <style>
-        #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #fff; /* or dark background */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        }
-
-        .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid #ccc;
-        border-top-color: #333;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-    </style>
-    <div id=\"preloader\">
-  <div class=\"spinner\"></div>
-</div>
-
     ";
-        // line 56
-        yield from $this->load("header.html", 56)->unwrap()->yield($context);
-        // line 57
+        // line 17
+        yield from $this->load("header.html", 17)->unwrap()->yield($context);
+        // line 18
         yield "    
        ";
-        // line 58
+        // line 19
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 61
+        // line 22
         yield "
     ";
-        // line 62
-        yield from $this->load("footer.html", 62)->unwrap()->yield($context);
-        // line 63
-        yield "    <script src=\"https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js\"></script>
-
-</body>
+        // line 23
+        yield from $this->load("footer.html", 23)->unwrap()->yield($context);
+        // line 24
+        yield "</body>
 </html>
 ";
         yield from [];
@@ -132,14 +91,14 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         yield from [];
     }
 
-    // line 58
+    // line 19
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 59
+        // line 20
         yield "        Default content
         ";
         yield from [];
@@ -166,7 +125,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  143 => 59,  136 => 58,  125 => 4,  116 => 63,  114 => 62,  111 => 61,  109 => 58,  106 => 57,  104 => 56,  49 => 4,  44 => 1,);
+        return array (  102 => 20,  95 => 19,  84 => 4,  77 => 24,  75 => 23,  72 => 22,  70 => 19,  67 => 18,  65 => 17,  49 => 4,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -187,45 +146,6 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
 </head>
 <div id=\"popup\" style=\"display:none\"></div>
 <body>
-    <script>
-        window.addEventListener('load', function () {
-            document.getElementById('preloader').style.display = 'none';
-        });
-    </script>
-    <style>
-        #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #fff; /* or dark background */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        }
-
-        .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid #ccc;
-        border-top-color: #333;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-    </style>
-    <div id=\"preloader\">
-  <div class=\"spinner\"></div>
-</div>
-
     {% include 'header.html' %}
     
        {% block content %}
@@ -233,8 +153,6 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         {% endblock %}
 
     {% include 'footer.html' %}
-    <script src=\"https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js\"></script>
-
 </body>
 </html>
 ", "base.index.html", "/var/www/frontiertoons/templates/base.index.html");

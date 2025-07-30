@@ -41,39 +41,92 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
         // line 1
         yield "<header>
     <div id=\"headerWrapper\">
-        <div id=\"siteLogo\"><a href=\"/\">FrontierToons</a></div>
+
+        <div id=\"siteLogo\">
+            <a :href=\"homeUrl\">FrontierToons</a>
+        </div>
+ 
         <nav id=\"navigation\">
-            <ul id=\"navList\">
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>                
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/blog\">Blog</a></li>
-                <li class=\"navListLI\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
-            </ul>
+            <div id=\"nav\">
+                <ul id=\"navList\">
+                    <li class=\"navListLI\" :class=\"{ active: current === 'catalog' }\">
+                        <a class=\"navLink\" href=\"/catalog\" @click=\"current = 'catalog'\">Comic Catalog</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'register' }\">
+                        <a class=\"navLink\" href=\"/register\" @click=\"current = 'register'\">Become An Author</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'about' }\">
+                        <a class=\"navLink\" href=\"/about\" @click=\"current = 'about'\">About Us</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'contact' }\">
+                        <a class=\"navLink\" href=\"/contact\" @click=\"current = 'contact'\">Contact Us</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'blog' }\">
+                        <a class=\"navLink\" href=\"/blog\" @click=\"current = 'blog'\">Blog</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
             <ul id=\"navListRight\">                
                 ";
-        // line 12
+        // line 32
         $context["loggedIn"] = ($context["logged_in"] ?? null);
-        // line 13
-        yield "                ";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["users"] ?? null), "username", [], "any", false, false, false, 13), "html", null, true);
-        yield "
+        yield "                
                 ";
-        // line 14
+        // line 33
         if ((($context["loggedIn"] ?? null) == true)) {
-            // line 15
-            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-slab fa-regular fa-circle-user\"></i> Your Profile</a></li>
+            yield "                   
+                    <li class=\"navLinkRight\" :class=\"{ active: current === 'dashboard' }\">
+                        <a class=\"navLinkBtn\" href=\"/dashboard\" @click=\"current = 'dashboard'\">
+                            <i class=\"fa-slab fa-regular fa-circle-user\"></i>  ";
+            // line 36
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["session"] ?? null), "Username", [], "any", false, false, false, 36), "html", null, true);
+            yield "
+                        </a>
+                    </li>
                     ";
         } else {
-            // line 17
-            yield "                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register</a></li>
+            // line 40
+            yield "                    <li class=\"navLinkRight\" :class=\"{ active: current === 'login' }\">
+                        <a class=\"navLinkBtn\" href=\"/login\" @click=\"current = 'login'\" >
+                            <i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register
+                        </a>
+                    </li>
                 ";
         }
-        // line 19
+        // line 46
         yield "                <li class=\"navLinkRight\"></li>
             </ul>
         </nav>
+       <div class=\"searchWrapper\">
+            <form action=\"/catalog\" method=\"POST\">                
+                <input type=\"text\">
+            </form>
+            <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>            
+        </div>
     </div>
-</header>";
+</header>
+
+
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                current: '";
+        // line 65
+        yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, true, false, 65), "attributes", [], "any", false, true, false, 65), "get", ["_route"], "method", true, true, false, 65) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, false, false, 65), "attributes", [], "any", false, false, false, 65), "get", ["_route"], "method", false, false, false, 65)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, false, false, 65), "attributes", [], "any", false, false, false, 65), "get", ["_route"], "method", false, false, false, 65), "html", null, true)) : (""));
+        yield "',
+                logoText: 'FrontierToons',
+                homeUrl: '/'
+            }
+        }
+    }).mount('#headerWrapper');
+
+</script>";
         yield from [];
     }
 
@@ -98,33 +151,82 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  72 => 19,  68 => 17,  64 => 15,  62 => 14,  57 => 13,  55 => 12,  42 => 1,);
+        return array (  121 => 65,  100 => 46,  92 => 40,  85 => 36,  79 => 33,  75 => 32,  42 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("<header>
     <div id=\"headerWrapper\">
-        <div id=\"siteLogo\"><a href=\"/\">FrontierToons</a></div>
+
+        <div id=\"siteLogo\">
+            <a :href=\"homeUrl\">FrontierToons</a>
+        </div>
+ 
         <nav id=\"navigation\">
-            <ul id=\"navList\">
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/catalog\">Comic Catalog</a></li>                
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/register\">Become An Author</a></li>
-                <li class=\"navListLI\"><a class=\"navLink\" href=\"/blog\">Blog</a></li>
-                <li class=\"navListLI\"><i class=\"fa-light fa-magnifying-glass\"></i> Search</li>
-            </ul>
+            <div id=\"nav\">
+                <ul id=\"navList\">
+                    <li class=\"navListLI\" :class=\"{ active: current === 'catalog' }\">
+                        <a class=\"navLink\" href=\"/catalog\" @click=\"current = 'catalog'\">Comic Catalog</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'register' }\">
+                        <a class=\"navLink\" href=\"/register\" @click=\"current = 'register'\">Become An Author</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'about' }\">
+                        <a class=\"navLink\" href=\"/about\" @click=\"current = 'about'\">About Us</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'contact' }\">
+                        <a class=\"navLink\" href=\"/contact\" @click=\"current = 'contact'\">Contact Us</a>
+                    </li>
+                    <li class=\"navListLI\" :class=\"{ active: current === 'blog' }\">
+                        <a class=\"navLink\" href=\"/blog\" @click=\"current = 'blog'\">Blog</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
             <ul id=\"navListRight\">                
-                {% set loggedIn = logged_in %}
-                {{users.username}}
-                {% if loggedIn == true %}
-                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/dashboard\" data-=\"loggedIn\"><i class=\"fa-slab fa-regular fa-circle-user\"></i> Your Profile</a></li>
+                {% set loggedIn = logged_in %}                
+                {% if loggedIn == true %}                   
+                    <li class=\"navLinkRight\" :class=\"{ active: current === 'dashboard' }\">
+                        <a class=\"navLinkBtn\" href=\"/dashboard\" @click=\"current = 'dashboard'\">
+                            <i class=\"fa-slab fa-regular fa-circle-user\"></i>  {{session.Username}}
+                        </a>
+                    </li>
                     {% else %}
-                    <li class=\"navLinkRight\"><a class=\"navLinkBtn\" href=\"/login\"><i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register</a></li>
+                    <li class=\"navLinkRight\" :class=\"{ active: current === 'login' }\">
+                        <a class=\"navLinkBtn\" href=\"/login\" @click=\"current = 'login'\" >
+                            <i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register
+                        </a>
+                    </li>
                 {% endif %}
                 <li class=\"navLinkRight\"></li>
             </ul>
         </nav>
+       <div class=\"searchWrapper\">
+            <form action=\"/catalog\" method=\"POST\">                
+                <input type=\"text\">
+            </form>
+            <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>            
+        </div>
     </div>
-</header>", "header.html", "/var/www/frontiertoons/templates/header.html");
+</header>
+
+
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                current: '{{ app.request.attributes.get(\"_route\") ?? \"\" }}',
+                logoText: 'FrontierToons',
+                homeUrl: '/'
+            }
+        }
+    }).mount('#headerWrapper');
+
+</script>", "header.html", "/var/www/frontiertoons/templates/header.html");
     }
 }

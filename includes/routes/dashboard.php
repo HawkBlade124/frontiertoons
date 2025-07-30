@@ -49,5 +49,6 @@ echo $twig->render('dashboard.html', [
     'username'  => $username,
     'logged_in' => $loggedIn,
     'profileID' => $profileID,
-    'csrfToken' => $_SESSION['csrf_token']
+    'csrfToken' => $_SESSION['csrf_token'],
+    'session' => $session
 ]);

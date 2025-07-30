@@ -19,8 +19,8 @@
                 <p>Welcome {{ users.FirstName }}!</p>            
             </div>
         </div>    
-        <div class="profileHeadRight">
-            <a id="viewAsGuestLink" href="/profile-view/:NiceName">Preview</a>
+        <div id="previewLink" class="profileHeadRight">
+            <a id="viewAsGuestLink" :href="'/profile-view/{{users.Username}}'">Preview</a>
             <a href="/logout">Sign Out</a>
         </div>
     </div>
@@ -47,9 +47,16 @@
                         </div>
                     </div>
                     <div class="inputGroup">
-                        <label for="Website">Website:</label>
+                        <label for="Website">Personal Website:</label>
                         <div class="inputIcons">
                             <input type="text" name="Website" data-userID="{{users.UserID}}" value="{{users.Website}}">
+                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Website">Update</button>
+                        </div>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="Website">Patreon:</label>
+                        <div class="inputIcons">
+                            <input type="text" name="Website" data-userID="{{users.UserID}}" value="{{users.Patreon}}">
                             <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Website">Update</button>
                         </div>
                     </div>
@@ -65,6 +72,29 @@
                         <div class="inputIcons">
                             <textarea name="Bio" rows="15" cols="100" data-userID="{{users.UserID}}">{{users.Bio}}</textarea>
                             <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Bio">Update</button>
+                        </div>
+                    </div>
+                    
+                    <h2>Social Media</h2>
+                    <div class="inputGroup">
+                        <label for="Platform">Facebook:</label>
+                        <div class="inputIcons">                            
+                            <input type="text" name="Platform" data-userID="{{users.UserID}}" value="{{users.Platform}}">
+                            <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>
+                        </div>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="Platform">X:</label>
+                        <div class="inputIcons">                            
+                            <input type="text" name="Platform" data-userID="{{users.UserID}}" value="{{users.Platform}}">
+                            <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>
+                        </div>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="Platform">Instagram:</label>
+                        <div class="inputIcons">                            
+                            <input type="text" name="Platform" data-userID="{{users.UserID}}" value="{{users.Platform}}">
+                            <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>
                         </div>
                     </div>
                 </div>
@@ -89,5 +119,14 @@
         </div>
     </div>
 </div>
+<script>
+    createApp({
+        data() {
+            return {
+                userName: '{{ users.Username }}'
+            };
+        }
+    }).mount('#previewLink');
 
+</script>
 {% endblock %}
