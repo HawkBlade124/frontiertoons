@@ -25,32 +25,34 @@
                     </li>
                 </ul>
             </div>
-
-
-
-            <ul id="navListRight">                
+        </nav>
+        <div id="navListRight">                
                 {% set loggedIn = logged_in %}                
                 {% if loggedIn == true %}                   
-                    <li class="navLinkRight" :class="{ active: current === 'dashboard' }">
+                    <div class="navLinkRight" :class="{ active: current === 'dashboard' }">
                         <a class="navLinkBtn" href="/dashboard" @click="current = 'dashboard'">
                             <i class="fa-slab fa-regular fa-circle-user"></i>  {{session.Username}}
                         </a>
-                    </li>
-                    {% else %}
-                    <li class="navLinkRight" :class="{ active: current === 'login' }">
-                        <a class="navLinkBtn" href="/login" @click="current = 'login'" >
-                            <i class="fa-jelly fa-regular fa-arrow-right-to-bracket"></i> Login/Register
+                    </div>
+                    <div class="navLinkRight" :class="{ active: current === 'favorites' }">
+                        <a class="navLinkBtn" href="/favorites" @click="current = 'favorites'" >
+                            <i class="fa-slab fa-regular fa-heart"></i>
                         </a>
-                    </li>
+                    </div>
+                    {% else %}
+                    <div class="navLinkRight" :class="{ active: current === 'login' }">
+                        <a class="navLinkBtn" href="/login" @click="current = 'login'" >
+                            <i class="fa-jelly fa-regular fa-arrow-right-to-bracket"></i> Login
+                        </a>
+                    </div>
+
                 {% endif %}
-                <li class="navLinkRight"></li>
-            </ul>
-        </nav>
-       <div class="searchWrapper">
-            <form action="/catalog" method="POST">                
-                <input type="text">
-            </form>
-            <button class="search" type="submit"><i class="fa-slab fa-regular fa-magnifying-glass"></i></button>            
+                <div class="searchWrapper">
+                    <button class="search" type="submit"><i class="fa-slab fa-regular fa-magnifying-glass"></i></button>
+                    <form action="/catalog" method="POST">                            
+                        <input type="text">
+                    </form>
+                </div>
         </div>
     </div>
 </header>

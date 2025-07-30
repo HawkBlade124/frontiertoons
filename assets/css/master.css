@@ -88,6 +88,7 @@ input{
 }
 #navListRight{
 	display:flex;
+	align-items: center;
 	gap:30px;
 	white-space: nowrap;
 	padding-left:0;
@@ -373,4 +374,11 @@ p.formText{
 }
 .forgotPassword{
   font-size:14px;
+}
+
+.homeSection {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin:65px 0;
 }

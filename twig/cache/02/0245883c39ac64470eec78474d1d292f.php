@@ -66,45 +66,47 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
                     </li>
                 </ul>
             </div>
-
-
-
-            <ul id=\"navListRight\">                
+        </nav>
+        <div id=\"navListRight\">                
                 ";
-        // line 32
+        // line 30
         $context["loggedIn"] = ($context["logged_in"] ?? null);
         yield "                
                 ";
-        // line 33
+        // line 31
         if ((($context["loggedIn"] ?? null) == true)) {
             yield "                   
-                    <li class=\"navLinkRight\" :class=\"{ active: current === 'dashboard' }\">
+                    <div class=\"navLinkRight\" :class=\"{ active: current === 'dashboard' }\">
                         <a class=\"navLinkBtn\" href=\"/dashboard\" @click=\"current = 'dashboard'\">
                             <i class=\"fa-slab fa-regular fa-circle-user\"></i>  ";
-            // line 36
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["session"] ?? null), "Username", [], "any", false, false, false, 36), "html", null, true);
+            // line 34
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["session"] ?? null), "Username", [], "any", false, false, false, 34), "html", null, true);
             yield "
                         </a>
-                    </li>
+                    </div>
+                    <div class=\"navLinkRight\" :class=\"{ active: current === 'favorites' }\">
+                        <a class=\"navLinkBtn\" href=\"/favorites\" @click=\"current = 'favorites'\" >
+                            <i class=\"fa-slab fa-regular fa-heart\"></i>
+                        </a>
+                    </div>
                     ";
         } else {
-            // line 40
-            yield "                    <li class=\"navLinkRight\" :class=\"{ active: current === 'login' }\">
+            // line 43
+            yield "                    <div class=\"navLinkRight\" :class=\"{ active: current === 'login' }\">
                         <a class=\"navLinkBtn\" href=\"/login\" @click=\"current = 'login'\" >
-                            <i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register
+                            <i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login
                         </a>
-                    </li>
+                    </div>
+
                 ";
         }
-        // line 46
-        yield "                <li class=\"navLinkRight\"></li>
-            </ul>
-        </nav>
-       <div class=\"searchWrapper\">
-            <form action=\"/catalog\" method=\"POST\">                
-                <input type=\"text\">
-            </form>
-            <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>            
+        // line 50
+        yield "                <div class=\"searchWrapper\">
+                    <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>
+                    <form action=\"/catalog\" method=\"POST\">                            
+                        <input type=\"text\">
+                    </form>
+                </div>
         </div>
     </div>
 </header>
@@ -117,8 +119,8 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
         data() {
             return {
                 current: '";
-        // line 65
-        yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, true, false, 65), "attributes", [], "any", false, true, false, 65), "get", ["_route"], "method", true, true, false, 65) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, false, false, 65), "attributes", [], "any", false, false, false, 65), "get", ["_route"], "method", false, false, false, 65)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, false, false, 65), "attributes", [], "any", false, false, false, 65), "get", ["_route"], "method", false, false, false, 65), "html", null, true)) : (""));
+        // line 67
+        yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, true, false, 67), "attributes", [], "any", false, true, false, 67), "get", ["_route"], "method", true, true, false, 67) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, false, false, 67), "attributes", [], "any", false, false, false, 67), "get", ["_route"], "method", false, false, false, 67)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["app"] ?? null), "request", [], "any", false, false, false, 67), "attributes", [], "any", false, false, false, 67), "get", ["_route"], "method", false, false, false, 67), "html", null, true)) : (""));
         yield "',
                 logoText: 'FrontierToons',
                 homeUrl: '/'
@@ -151,7 +153,7 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  121 => 65,  100 => 46,  92 => 40,  85 => 36,  79 => 33,  75 => 32,  42 => 1,);
+        return array (  123 => 67,  104 => 50,  95 => 43,  83 => 34,  77 => 31,  73 => 30,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -183,32 +185,34 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
                     </li>
                 </ul>
             </div>
-
-
-
-            <ul id=\"navListRight\">                
+        </nav>
+        <div id=\"navListRight\">                
                 {% set loggedIn = logged_in %}                
                 {% if loggedIn == true %}                   
-                    <li class=\"navLinkRight\" :class=\"{ active: current === 'dashboard' }\">
+                    <div class=\"navLinkRight\" :class=\"{ active: current === 'dashboard' }\">
                         <a class=\"navLinkBtn\" href=\"/dashboard\" @click=\"current = 'dashboard'\">
                             <i class=\"fa-slab fa-regular fa-circle-user\"></i>  {{session.Username}}
                         </a>
-                    </li>
-                    {% else %}
-                    <li class=\"navLinkRight\" :class=\"{ active: current === 'login' }\">
-                        <a class=\"navLinkBtn\" href=\"/login\" @click=\"current = 'login'\" >
-                            <i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login/Register
+                    </div>
+                    <div class=\"navLinkRight\" :class=\"{ active: current === 'favorites' }\">
+                        <a class=\"navLinkBtn\" href=\"/favorites\" @click=\"current = 'favorites'\" >
+                            <i class=\"fa-slab fa-regular fa-heart\"></i>
                         </a>
-                    </li>
+                    </div>
+                    {% else %}
+                    <div class=\"navLinkRight\" :class=\"{ active: current === 'login' }\">
+                        <a class=\"navLinkBtn\" href=\"/login\" @click=\"current = 'login'\" >
+                            <i class=\"fa-jelly fa-regular fa-arrow-right-to-bracket\"></i> Login
+                        </a>
+                    </div>
+
                 {% endif %}
-                <li class=\"navLinkRight\"></li>
-            </ul>
-        </nav>
-       <div class=\"searchWrapper\">
-            <form action=\"/catalog\" method=\"POST\">                
-                <input type=\"text\">
-            </form>
-            <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>            
+                <div class=\"searchWrapper\">
+                    <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>
+                    <form action=\"/catalog\" method=\"POST\">                            
+                        <input type=\"text\">
+                    </form>
+                </div>
         </div>
     </div>
 </header>
