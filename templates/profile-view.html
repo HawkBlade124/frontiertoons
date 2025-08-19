@@ -1,10 +1,38 @@
 {% extends 'base.index.html' %}
-{% block title %}{{users.Username}}'s Profile{% endblock %}
+{% set nicename = users.NiceName %}
+{% set username = users.Username %}
+
+{% block title %}{{username}}'s Profile{% endblock %}
 {% block content %}
+<style>
+#mainProfile {  display:grid;  place-content:center;}
+#profileHead{  display: flex;  flex-direction: column;  align-items: center;}
+</style>
 <div id="profileWrapper">
     <div id="profileCoverPhoto">
         <img src="/assets/images/user-cover-photo/{{users.CoverPhoto}}" alt="">
     </div>
 </div>
-    {{users.Bio}}
+<div id="mainProfile">
+    <div id="profileHead">
+        <img src="/assets/images/user-cover-photos/{{users.CoverPhoto}}" alt="{{users.Username}} Cover Photo ">
+        <div id="profileName">
+            <img id="profileAvatar" src="/assets/images/user-profile-images/{{ users.UserID|hash('user-images-v1') }}/{{ users.Avatar|default('default-avatar.jpg') }}" alt="User Avatar" data-userid="{{ users.UserID }}">
+            {% if nicename is defined %}
+                {{nicename}}
+            {% else %}
+                {{username}}
+            {% endif %}
+        </div>
+
+    </div>
+    <div id="authorsBlock">
+        <div id="authorBio">
+            {{users.Bio}}
+        </div>
+    </div>
+</div>
+<pre>
+    {{dump(_context)}}
+</pre>
 {% endblock %}

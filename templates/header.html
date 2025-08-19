@@ -4,29 +4,14 @@
         <div id="siteLogo">
             <a :href="homeUrl">FrontierToons</a>
         </div>
+         <div class="searchWrapper">
+            <button class="search" type="submit"><i class="fa-slab fa-regular fa-magnifying-glass"></i></button>
+            <form action="/catalog" method="POST">                            
+                <input type="text">
+            </form>
+        </div>
+        <div id="navListRight">            
  
-        <nav id="navigation">
-            <div id="nav">
-                <ul id="navList">
-                    <li class="navListLI" :class="{ active: current === 'catalog' }">
-                        <a class="navLink" href="/catalog" @click="current = 'catalog'">Comic Catalog</a>
-                    </li>
-                    <li class="navListLI" :class="{ active: current === 'register' }">
-                        <a class="navLink" href="/register" @click="current = 'register'">Become An Author</a>
-                    </li>
-                    <li class="navListLI" :class="{ active: current === 'about' }">
-                        <a class="navLink" href="/about" @click="current = 'about'">About Us</a>
-                    </li>
-                    <li class="navListLI" :class="{ active: current === 'contact' }">
-                        <a class="navLink" href="/contact" @click="current = 'contact'">Contact Us</a>
-                    </li>
-                    <li class="navListLI" :class="{ active: current === 'blog' }">
-                        <a class="navLink" href="/blog" @click="current = 'blog'">Blog</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div id="navListRight">                
                 {% set loggedIn = logged_in %}                
                 {% if loggedIn == true %}                   
                     <div class="navLinkRight" :class="{ active: current === 'dashboard' }">
@@ -45,16 +30,72 @@
                             <i class="fa-jelly fa-regular fa-arrow-right-to-bracket"></i> Login
                         </a>
                     </div>
-
                 {% endif %}
-                <div class="searchWrapper">
-                    <button class="search" type="submit"><i class="fa-slab fa-regular fa-magnifying-glass"></i></button>
-                    <form action="/catalog" method="POST">                            
-                        <input type="text">
-                    </form>
-                </div>
+            <div class="hamburger">
+                <i class="fa-regular fa-bars"></i>
+            </div>
         </div>
     </div>
+    <nav id="navigation">
+        <div id="nav">
+            <ul id="navList">
+                <li class="navListLI" :class="{ active: current === 'catalog' }">
+                    <a class="navLink" href="/catalog" @click="current = 'catalog'">Comic Catalog</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'register' }">
+                    <a class="navLink" href="/register" @click="current = 'register'">Become An Author</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'about' }">
+                    <a class="navLink" href="/about" @click="current = 'about'">About Us</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'contact' }">
+                    <a class="navLink" href="/contact" @click="current = 'contact'">Contact Us</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'blog' }">
+                    <a class="navLink" href="/blog" @click="current = 'blog'">Blog</a>
+                </li>
+            </ul>
+        </div>
+        <div id="mobileNav">
+                {% set loggedIn = logged_in %}                
+                {% if loggedIn == true %}                   
+                    <div class="navLinkRight" :class="{ active: current === 'dashboard' }">
+                        <a class="navLinkBtn" href="/dashboard" @click="current = 'dashboard'">
+                            <i class="fa-slab fa-regular fa-circle-user"></i>  {{session.Username}}
+                        </a>
+                    </div>
+                    <div class="navLinkRight" :class="{ active: current === 'favorites' }">
+                        <a class="navLinkBtn" href="/favorites" @click="current = 'favorites'" >
+                            <i class="fa-slab fa-regular fa-heart"></i>
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="navLinkRight" :class="{ active: current === 'login' }">
+                        <a class="navLinkBtn" href="/login" @click="current = 'login'" >
+                            <i class="fa-jelly fa-regular fa-arrow-right-to-bracket"></i> Login
+                        </a>
+                    </div>
+                {% endif %}
+            <ul id="navList">
+                <li class="navListLI" :class="{ active: current === 'catalog' }">
+                    <a class="navLink" href="/catalog" @click="current = 'catalog'">Comic Catalog</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'register' }">
+                    <a class="navLink" href="/register" @click="current = 'register'">Become An Author</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'about' }">
+                    <a class="navLink" href="/about" @click="current = 'about'">About Us</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'contact' }">
+                    <a class="navLink" href="/contact" @click="current = 'contact'">Contact Us</a>
+                </li>
+                <li class="navListLI" :class="{ active: current === 'blog' }">
+                    <a class="navLink" href="/blog" @click="current = 'blog'">Blog</a>
+                </li>
+            </ul>                        
+        </div>
+
+    </nav>
 </header>
 
 

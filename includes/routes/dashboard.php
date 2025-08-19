@@ -20,7 +20,7 @@ $pdo = getDbConnection();
 $query = "
  SELECT users.UserID, users.FirstName, users.Email, users.NiceName, users.Username,            
            profile.Avatar, profile.Bio, profile.Gender, profile.RatingPref, 
-           profile.Subscriptions, profile.Website, profile.LastMod, profile.CoverPhoto
+           profile.Subscriptions, profile.Website, profile.LastMod, profile.CoverPhoto, profile.Uploads, profile.Patreon
     FROM users 
     LEFT JOIN profile ON users.UserID = profile.ProfileID 
     WHERE users.UserID = :user_id
@@ -30,6 +30,28 @@ $stmt->bindParam(':user_id', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+$query2 = "
+    SELECT series.SeriesID, series.Title, series.Author, series.Credits, series.MaturityRating, series.UserID
+    FROM series
+    LEFT JOIN users ON series.UserID = users.UserID
+    WHERE series.UserID = :userID
+";
+$stmt2 = $pdo->prepare($query2);
+$stmt2->bindParam(':userID', $userID, PDO::PARAM_INT);
+$stmt2->execute();
+$series = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+$socialQuery = "
+    SELECT usersocials.UserID, usersocials.platform, usersocials.ProfileURL
+    FROM usersocials
+    LEFT JOIN users ON usersocials.UserID = users.UserID
+    WHERE usersocials.UserID = :socuserID
+";
+$stmt3 = $pdo->prepare($socialQuery);
+$stmt3->bindParam(':socuserID', $userID, PDO::PARAM_INT);
+$stmt3->execute();
+$socials = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 // Setup Twig
 $loader = new FilesystemLoader(dirname(__DIR__, 2) . '/templates');
 $twig = new Environment($loader, [
@@ -49,6 +71,8 @@ echo $twig->render('dashboard.html', [
     'username'  => $username,
     'logged_in' => $loggedIn,
     'profileID' => $profileID,
-    'csrfToken' => $_SESSION['csrf_token'],
-    'session' => $session
+    'session' => $session,
+    'hideHeaderFooter' => true,
+    'series' => $series,
+    'socials' => $socials
 ]);

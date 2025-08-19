@@ -1,110 +1,165 @@
 {% extends 'base.index.html' %}
 {% block title %}Your Profile Home{% endblock %}
 {% block content %}
-<script>
-    const currentUsername = "{{users.Username}}";
-</script>
-<div class="profile">
-    <div class="profileHeader">
-        <div class="profileHeadLeft">
-            <div id="profileAvatar" onclick="triggerFilePicker()">
-                <img id="dashboardAvatar" 
-                    src="/assets/images/user-profile-images/{{ users.UserID|hash('user-images-v1') }}/{{ users.Avatar|default('default-avatar.jpg') }}" 
-                    alt="User Avatar" 
-                    data-userid="{{ users.UserID }}">
-                <span class="changeAvatar"><i class="fa-solid fa-pencil"></i></span>
-                <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadImage()" />
-            </div>
-            <div id="profileName">
-                <p>Welcome {{ users.FirstName }}!</p>            
-            </div>
-        </div>    
-        <div id="previewLink" class="profileHeadRight">
-            <a id="viewAsGuestLink" :href="'/profile-view/{{users.Username}}'">Preview</a>
-            <a href="/logout">Sign Out</a>
-        </div>
-    </div>
+{% macro findProfileURL(socials, platform) %}
+    {% for social in socials %}
+        {% if social.platform == platform %}
+            {{- social.ProfileURL -}}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
 
-    <div class="profileWrapper">
-        <div class="profileSidebar">
-            <div class="profileSidebarBtn active" data-target="edit">Edit Profile</div>
-            <div class="profileSidebarBtn" data-target="subscr">Subscriptions</div>            
-            <div class="profileSidebarBtn" data-target="uploads">Uploads</div>
-            <div class="profileSidebarBtn" data-target="settings">Settings</div>
-            <div class="profileSidebarBtn" data-target="security">Security</div>            
-        </div>
-        <div class="resultsSection">
-                <div class="profileInnerHead">     
-                    <div id="profileUpdateMsg"></div>
-                    Last Updated: {{users.LastMod}}
+{% import _self as macros %}
+
+<div id="dashboard">
+    <div id="dashboardSidebar">
+        <div class="dashboardSidebarBtn active" data-target="edit"><i class="fa-light fa-pencil"></i> Edit Profile</div>
+        <div class="dashboardSidebarBtn" data-target="subscr"><i class="fa-light fa-hearts"></i> Subscriptions</div>            
+        <div class="dashboardSidebarBtn" data-target="uploads"><i class="fa-light fa-folder-arrow-up"></i> Uploads</div>
+        <div class="dashboardSidebarBtn" data-target="settings"><i class="fa-light fa-gear"></i> Settings</div>
+        <div class="dashboardSidebarBtn" data-target="security"><i class="fa-light fa-user-shield"></i> Security</div>            
+        <a href="/"><i class="fa-slab fa-regular fa-arrow-left"></i> Go back to homepage</a>
+    </div>
+    <div id="dashboardWrapper"> 
+        <div id="dashboardHeader">
+            <div id="dashboardHeadLeft">
+                <div id="dashboardAvatar" onclick="triggerFilePicker()">
+                    <img id="dashboardAvatar" src="/assets/images/user-profile-images/{{ users.UserID|hash('user-images-v1') }}/{{ users.Avatar|default('default-avatar.jpg') }}" alt="User Avatar" data-userid="{{ users.UserID }}">
+                    <span class="changeAvatar"><i class="fa-solid fa-pencil"></i></span>
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadImage()" />
                 </div>
-                <div class="profileResults active edit">
-                    <div class="inputGroup">
-                        <label for="Email">Email:</label>
-                        <div class="inputIcons">
-                            <input type="email" name="Email" data-userID="{{users.UserID}}" value="{{users.Email}}">
-                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Email">Update</button>
-                        </div>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="Website">Personal Website:</label>
-                        <div class="inputIcons">
-                            <input type="text" name="Website" data-userID="{{users.UserID}}" value="{{users.Website}}">
-                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Website">Update</button>
-                        </div>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="Website">Patreon:</label>
-                        <div class="inputIcons">
-                            <input type="text" name="Website" data-userID="{{users.UserID}}" value="{{users.Patreon}}">
-                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Website">Update</button>
-                        </div>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="NiceName">Nickname<div class="helpIcon">?</div>:</label>
-                        <div class="inputIcons">
-                            <input type="text" name="NiceName" data-userID="{{users.UserID}}" value="{{users.NiceName}}">
-                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="NiceName">Update</button>
-                        </div>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="Bio">Bio:</label>
-                        <div class="inputIcons">
-                            <textarea name="Bio" rows="15" cols="100" data-userID="{{users.UserID}}">{{users.Bio}}</textarea>
-                            <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Bio">Update</button>
-                        </div>
-                    </div>
-                    
-                    <h2>Social Media</h2>
-                    <div class="inputGroup">
-                        <label for="Platform">Facebook:</label>
-                        <div class="inputIcons">                            
-                            <input type="text" name="Platform" data-userID="{{users.UserID}}" value="{{users.Platform}}">
-                            <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>
-                        </div>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="Platform">X:</label>
-                        <div class="inputIcons">                            
-                            <input type="text" name="Platform" data-userID="{{users.UserID}}" value="{{users.Platform}}">
-                            <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>
-                        </div>
-                    </div>
-                    <div class="inputGroup">
-                        <label for="Platform">Instagram:</label>
-                        <div class="inputIcons">                            
-                            <input type="text" name="Platform" data-userID="{{users.UserID}}" value="{{users.Platform}}">
-                            <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>
-                        </div>
-                    </div>
+                <div id="dashboardWelcomeText">
+                    <p>Welcome {{ users.FirstName }}!</p>            
+                    <small>Last Updated: {{users.LastMod}}</small>
                 </div>
-            <div class="profileResults subscr">
-                <p>This is to build out the subscriptions section</p>
-            </div> 
-            <div class="profileResults settings">
-                <p>This is to build out the settings section</p>
+            </div>                
+            <div id="previewLink" class="dashboardHeadRight">                
+                <a id="viewAsGuestLink" :href="'/profile-view/{{users.Username}}'">Preview</a>
+                <a class="signoutBtn" href="/logout">Sign Out</a>                
             </div>
-            <div class="profileResults security">
+        </div>
+        <div id="dashboardCoverPhoto" onclick="triggerFilePicker()">
+            <img id="coverPhoto" src="/assets/images/user-cover-photos/{{ users.UserID|hash('user-images-v1') }}/{{ users.CoverPhoto|default('default-cover.jpg') }}" alt="User Cover Photo" data-userid="{{ users.UserID }}">
+            <span class="changeCoverPhoto"><i class="fa-solid fa-pencil"></i></span>
+            <input type="file" id="coverInput" accept="image/*" style="display: none;" onchange="uploadCoverImage()" />
+        </div>
+        <div id="resultsSection">
+                <div id="resultsInnerHead">     
+                    <div id="resultsUpdateMsg"></div>                    
+                </div>
+                <form id="resultsForm" class="dashboardResults active edit" data-userID="{{session.UserID}}"  action="../includes/UserFunctions.php"  method="post">
+                        
+                    <input type="hidden" name="action"  value="changeData">
+                    <input type="hidden" name="userID" value="{{session.UserID}}">
+                    <button id="saveAll" class="btn-primary changeDataBtn" data-userID="{{session.UserID}}"  type="button">Update</button>
+                    
+                    <div class="dashboardResultsColWrap">                                                
+                        <div class="dashboardResultsCol">
+                            <h3>Main Profile</h3>
+                            <div class="inputGroup">
+                                <label for="Email">Email:</label>
+                                <div class="inputIcons">
+                                    <input type="email" name="users[Email]" value="{{users.Email}}" required>
+                                </div>
+                            </div>
+                            <div class="inputGroup">
+                                <label for="Website">Personal Website:</label>
+                                <div class="inputIcons">
+                                    <input type="url" name="profile[Website]" value="{{users.Website}}">
+                                </div>
+                            </div>
+                            <div class="inputGroup">
+                                <label for="Patreon">Patreon:</label>
+                                <div class="inputIcons">
+                                    <input type="url" name="profile[Patreon]" value="{{users.Patreon}}">
+                                </div>
+                            </div>
+                            <div class="inputGroup">
+                                <label for="NiceName">Nickname:</label>
+                                <div class="inputIcons">
+                                    <input type="text" name="users[NiceName]" value="{{users.NiceName}}" >
+                                </div>
+                            </div>
+                            <div class="inputGroup">
+                                <label for="Bio">Bio:</label>
+                                <div class="inputIcons">
+                                    <textarea name="profile[Bio]" rows="15" cols="100">{{users.Bio}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboardResultsCol">
+                            <h3>Social Media</h3>
+
+                            <div class="inputGroup">
+                                <label for="Platform">Facebook:</label>
+                                <div class="inputIcons">
+                                    <input type="hidden" name="socials[0][Platform]" value="Facebook">
+                                    <input class="urlValidation" type="url" name="socials[0][ProfileURL]" value="{{ macros.findProfileURL(socials, 'Facebook') }}">
+                                </div>
+                            </div>
+
+                            <div class="inputGroup">
+                                <label for="Platform">X/Twitter:</label>
+                                <div class="inputIcons">
+                                    <input type="hidden" name="socials[1][Platform]" value="Twitter">
+                                    <input class="urlValidation" type="url" name="socials[1][ProfileURL]" value="{{ macros.findProfileURL(socials, 'Twitter') }}">
+                                </div>
+                            </div>
+
+                            <div class="inputGroup">
+                                <label for="Platform">Instagram:</label>
+                                <div class="inputIcons">
+                                    <input type="hidden" name="socials[2][Platform]" value="Instagram">
+                                    <input class="urlValidation" type="url" name="socials[2][ProfileURL]" value="{{ macros.findProfileURL(socials, 'Instagram') }}">
+                                </div>
+                            </div>
+
+                            <div class="inputGroup">
+                                <label for="Platform">YouTube:</label>
+                                <div class="inputIcons">
+                                    <input type="hidden" name="socials[3][Platform]" value="YouTube">
+                                    <input class="urlValidation" type="url" name="socials[3][ProfileURL]" value="{{ macros.findProfileURL(socials, 'YouTube') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            <div class="dashboardResults subscr">
+                 <h2>Subscriptions</h2>
+                <p>build out subscriptions section</p>
+            </div> 
+            <div class="dashboardResults uploads">
+                <h2>Uploads</h2>        
+                <div id="seriesProfileCatalog">
+                {% if series != empty%}                    
+                    {% for series in series %}
+                    <div class="seriesBox">
+                        <div class="seriesImage">
+                            <img src="assets/images/user-series/{{series.Thumbnail}}" alt="Series Image">
+                        </div>                    
+                        <div class="seriesTitle">{{series.Title}} <span class="labelRating">{{series.MaturityLabel}} {{series.MaturityRating}}</span></div>
+                        {% set status = series.status %}
+                        {% if status == 'published' %}
+                        <div class="pubDate">Published on {{series.PublishedDate}}</div>
+                        <div class="favorite"><i class="fa-solid fa-heart"></i> {{series.Likes}}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div id="noUploads">
+                        No uploads found. <a href="/upload">Ready to publish</a>?
+                    </div>
+                {% endif %}
+                
+                </div>
+                </div>
+            <div class="dashboardResults settings">
+                <h2>Profile Settings</h2>
+                <p>build out settings section</p>
+            </div>
+            <div class="dashboardResults security">
+                 <h2>Security</h2>
                 <div class="passwordChange">
                     <label for="password">Change Password</label>
                     <div class="inputIcons">
@@ -120,7 +175,7 @@
     </div>
 </div>
 <script>
-    createApp({
+    Vue.createApp({
         data() {
             return {
                 userName: '{{ users.Username }}'
@@ -128,5 +183,34 @@
         }
     }).mount('#previewLink');
 
+    $(function(){
+        $('#profileForm').validate({
+            onkeyup: function (element) {
+                $(element).valid();
+            },
+            errorPlacement: function (error, element) {
+                error.addClass('error-message'); // optional styling class
+                error.insertAfter(element); // puts it right after the input
+            },
+            rules: {
+                "users[Email]": { required: true, email: true },
+                "profile[Patreon]": { url: true },
+                "profile[Website]": { url: true },
+                "socials[0][ProfileURL]": { url: true },
+                "socials[1][ProfileURL]": { url: true },
+                "socials[2][ProfileURL]": { url: true },
+                "socials[3][ProfileURL]": { url: true }
+            },
+            messages: {
+                "users[Email]": { required: "Email is required" },
+                "profile[Patreon]": { url: "Please enter a valid Patreon URL" },
+                "profile[Website]": { url: "Please enter a valid URL" },
+                "socials[0][ProfileURL]": { url: "Please enter a valid Facebook URL" },
+                "socials[1][ProfileURL]": { url: "Please enter a valid Twitter URL" },
+                "socials[2][ProfileURL]": { url: "Please enter a valid Instagram URL" },
+                "socials[3][ProfileURL]": { url: "Please enter a valid YouTube URL" }
+            }
+        });
+    })
 </script>
 {% endblock %}

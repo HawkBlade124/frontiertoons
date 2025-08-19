@@ -53,27 +53,37 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\" integrity=\"sha256-9zljDKpE/mQxmaR4V2cGVaQ7arF3CcXxarvgr7Sj8Uc=\" crossorigin=\"anonymous\"></script>
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
-    <link rel=\"stylesheet\" href=\"../assets/css/fontawesome/css/all.css\">
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
     <script src=\"/assets/js/functions/master.js\"></script>    
     <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
-    <script src=\"/assets/js/functions/popovers.js\"></script>   
+    <script src=\"/assets/js/functions/popovers.js\"></script> 
+    <script src=\"https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js\"></script>
 </head>
 <div id=\"popup\" style=\"display:none\"></div>
 <body>
+    
     ";
-        // line 17
-        yield from $this->load("header.html", 17)->unwrap()->yield($context);
-        // line 18
-        yield "    
-       ";
         // line 19
-        yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
+        if ((($context["hideHeaderFooter"] ?? null) == false)) {
+            // line 20
+            yield "        ";
+            yield from $this->load("header.html", 20)->unwrap()->yield($context);
+            // line 21
+            yield "    ";
+        }
         // line 22
-        yield "
-    ";
-        // line 23
-        yield from $this->load("footer.html", 23)->unwrap()->yield($context);
-        // line 24
+        yield "       ";
+        yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
+        // line 25
+        yield "    ";
+        if ((($context["hideHeaderFooter"] ?? null) == false)) {
+            // line 26
+            yield "        ";
+            yield from $this->load("footer.html", 26)->unwrap()->yield($context);
+            // line 27
+            yield "    ";
+        }
+        // line 28
         yield "</body>
 </html>
 ";
@@ -91,14 +101,14 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         yield from [];
     }
 
-    // line 19
+    // line 22
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 20
+        // line 23
         yield "        Default content
         ";
         yield from [];
@@ -125,7 +135,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  102 => 20,  95 => 19,  84 => 4,  77 => 24,  75 => 23,  72 => 22,  70 => 19,  67 => 18,  65 => 17,  49 => 4,  44 => 1,);
+        return array (  112 => 23,  105 => 22,  94 => 4,  87 => 28,  84 => 27,  81 => 26,  78 => 25,  75 => 22,  72 => 21,  69 => 20,  67 => 19,  49 => 4,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -139,20 +149,24 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"https://code.jquery.com/ui/1.14.1/jquery-ui.js\" integrity=\"sha256-9zljDKpE/mQxmaR4V2cGVaQ7arF3CcXxarvgr7Sj8Uc=\" crossorigin=\"anonymous\"></script>
     <script src=\"https://unpkg.com/vue@3/dist/vue.global.js\"></script>
     <link rel=\"stylesheet\" href=\"../assets/css/master.css\">
-    <link rel=\"stylesheet\" href=\"../assets/css/fontawesome/css/all.css\">
+    <script src=\"https://kit.fontawesome.com/15b6d67935.js\" crossorigin=\"anonymous\"></script>
     <script src=\"/assets/js/functions/master.js\"></script>    
     <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
-    <script src=\"/assets/js/functions/popovers.js\"></script>   
+    <script src=\"/assets/js/functions/popovers.js\"></script> 
+    <script src=\"https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js\"></script>
 </head>
 <div id=\"popup\" style=\"display:none\"></div>
 <body>
-    {% include 'header.html' %}
     
+    {% if hideHeaderFooter == false %}
+        {% include 'header.html' %}
+    {% endif %}
        {% block content %}
         Default content
         {% endblock %}
-
-    {% include 'footer.html' %}
+    {% if hideHeaderFooter == false %}
+        {% include 'footer.html' %}
+    {% endif %}
 </body>
 </html>
 ", "base.index.html", "/var/www/frontiertoons/templates/base.index.html");

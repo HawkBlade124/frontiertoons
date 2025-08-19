@@ -1,0 +1,52 @@
+{% extends 'base.index.html' %}
+{% block title %}Get Published{% endblock %}
+{% block content %}
+<div id="policy">
+    <h1>Lets Get Started, {{session.Username}}!</h1>
+        <div class="inputGroup">
+            <label for="Title">Webtoon Title</label>
+            <div class="inputIcons">                            
+                <input type="text" name="Title" data-userID="{{users.UserID}}" placeholder="Enter the name of your webtoon">
+            </div>
+            <div class="btnWrap">
+                <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>                        
+            </div>
+        </div>
+        <div class="inputGroup">
+            <label for="Description">Description</label>
+            <div class="inputIcons">
+                <textarea name="Description" rows="15" cols="100" data-userID="{{users.UserID}}"></textarea>
+            </div>
+            <div class="btnWrap">
+                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
+            </div>
+        </div>
+        <div class="inputGroup">
+            <label for="MaturityCheck">For Mature Audiences Only?</label>
+            <div class="inputIcons checkbox">
+
+            </div>
+            <div class="btnWrap">
+                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
+            </div>
+        </div>
+        <div class="inputGroup">
+            <label for="MaturityCheck">Maturity Rating</label>
+            <div class="inputIcons checkbox">
+                <input type="checkbox" name="yes"> Yes
+            </div>
+            <div class="btnWrap">
+                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
+            </div>
+        </div>
+        <div class="inputGroup">
+            <label for="MaturityCheck">Maturity Label?</label>
+            <div class="inputIcons checkbox">
+                <input type="checkbox" name="yes"> Yes
+            </div>
+            <div class="btnWrap">
+                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
+            </div>
+        </div>
+</div>
+{% endblock %}

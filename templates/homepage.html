@@ -1,29 +1,20 @@
 {% extends 'base.index.html' %}
 {% block title %}Your webtoon home!{% endblock %}
 {% block content %}
-<section class="homeSection">
-    <h1>Pave the trail</h1>
+<section class="homeSection head">
+    <h1>Pave the Trail</h1>
     <p>FrontierToons is on a mission to make the web a place for creative artists.</p>
-    <a href="/register" class="btn-primary">Get your adventure started!</a>
+    <a href="/register" class="btn-primary">Get Started!</a>
 </section>
 <section class="homeSection">
         <div class="sectionWrap">
             <h2>Popular Reads</h2>
 
-        </div>
-        <div class="sectionWrap">
-            <h2>Author of The Week</h2>
-            <a href="/profile-view/test2"  >test2</a>
-            <div id="userTest">
-                                    
-                {% for User in users %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="sectionWrap">
-            <h2>Get Noticed By Senpai!</h2>
-            <p class="sectionText">Ready to get yourself seen by the masses? <button class="regularBtn">Get published today!</button></p>
-        </div>
+            <h2>Author of The Week: <a href="/profile-view/test2">test2</a></h2>            
+<p class="sectionPara">See what this author published</p>
+        <h2>Get Noticed By Senpai!</h2>
+        <p class="sectionText">Ready to get yourself seen by the masses? <button class="regularBtn">Get published today!</button></p>
+
 </section>
 <script>
     createApp({
@@ -34,4 +25,5 @@
         }
     }).mount('#userTest');
 </script>
+
 {% endblock %}

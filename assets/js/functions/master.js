@@ -1,4 +1,15 @@
-function sessionTimeOut(){
+$(function(){
+    
+    $('.dashboardSidebarBtn').click(function () {
+        $('.dashboardSidebarBtn').removeClass('active');
+        $(this).addClass('active'); 
+               
+        var show = $(this).data('target');
+
+        $('.dashboardResults').removeClass('active');
+        $('.dashboardResults.' + show).addClass('active');
+    });
+    function sessionTimeOut(){
     const IDLE_LIMIT = 20 * 60 * 1000;  // 20 minutes
     const WARNING_LIMIT = 1 * 60 * 1000; // 1 minute after warning
 
@@ -26,17 +37,4 @@ function sessionTimeOut(){
         startIdleTimer();
     }
 }
-$(function(){
-    
-    $('.profileSidebarBtn').click(function () {
-        // Set active class on the clicked button
-        $('.profileSidebarBtn').removeClass('active');
-        $(this).addClass('active');
-
-        // Show corresponding profile result
-        var show = $(this).data('target');
-
-        $('.profileResults').removeClass('active');
-        $('.profileResults.' + show).addClass('active');
-    });
 })

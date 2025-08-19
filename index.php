@@ -14,12 +14,16 @@ $twig = new \Twig\Environment($loader, [
     'debug' => true,
 ]);
 
+$userID = $_SESSION['UserID'] ?? null;
+$username = $_SESSION['Username'] ?? null;
+$loggedIn = $_SESSION['logged_in'] ?? false;
+
 // Gather session info
 $session = [
     'UserID'   => $_SESSION['UserID'] ?? null,
     'Username' => $_SESSION['Username'] ?? null,
     'logged_in'  => $_SESSION['logged_in'] ?? false,
-    'csrfToken'  => $_SESSION['csrf_token'] ?? null
+    
 ];
 
 // Register these as Twig globals
@@ -49,7 +53,8 @@ $routes = [
     '/recommended' => 'recommended.php',
     '/forgot-password' => 'forgot-password.php',
     '/blog' => 'blog.php',
-    '/profile-view' => 'profile-view.php'
+    '/profile-view' => 'profile-view.php',
+    '/upload' => 'upload-series.php'
 ];
 
 $routeFile = $routes[$uri] ?? null;

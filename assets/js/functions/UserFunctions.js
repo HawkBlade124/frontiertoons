@@ -1,51 +1,93 @@
 $(function() {
-    var userID = $('#dashboardAvatar').attr('data-userID');
-
     function triggerFilePicker() {
         document.getElementById("avatarInput").click();
     }
 
-    function uploadImage() {
-        const fileInput = document.getElementById("avatarInput");
-        const file = fileInput.files[0];
-        if (!file) {
-            alert('Please select an image to upload.');
-            return;
-        }
+function uploadImage() {
+    const file = $('#avatarInput')[0].files[0];
+    const userID = $('#userAvatar').data('userid'); // <- now correct
 
-        if (!userID || isNaN(userID) || parseInt(userID) <= 0) {
-            console.error('Invalid UserID:', userID);
-            alert('Error: Invalid user ID. Please ensure you are logged in.');
-            return;
-        }
+    if (!file) {
+        alert('Please select an image to upload.');
+        return;
+    }
 
-        const formData = new FormData();
-        formData.append('Avatar', file);
-        formData.append('UserID', userID);
+    if (!userID || isNaN(userID) || parseInt(userID) <= 0) {
+        console.error('Invalid UserID:', userID);
+        alert('Error: Invalid user ID. Please ensure you are logged in.');
+        return;
+    }
 
-        $.ajax({
-            url: '/includes/UserFunctions.php',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                if (response.status === 'success') {
-                    $('#popup').html('Avatar updated');
-                } else {
-                    console.log('Server response:', response);
-                    alert('Error: ' + (response.message || 'Failed to update avatar'));
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error:', status, error);
-                alert('Unable to update avatar');
+    const formData = new FormData();
+    formData.append('Avatar', file);
+    formData.append('UserID', userID);
+
+    $.ajax({
+        url: '/includes/UserFunctions.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            if (response.status === 'success') {
+                $('#popup').html('Avatar updated');
+            } else {
+                console.log('Server response:', response);
+                alert('Error: ' + (response.message || 'Failed to update avatar'));
             }
-        });
-    }    
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', xhr, status, error);
+            alert('Unable to update avatar');
+        }
+    });
+}
+
+
+
+    function uploadCoverImage() {
+    const file = $('#coverInput')[0].files[0];
+    const userID = $('#coverPhoto').data('userid');
+
+    if (!file) {
+        alert('Please select an image to upload.');
+        return;
+    }
+
+    if (!userID || isNaN(userID) || parseInt(userID) <= 0) {
+        console.error('Invalid UserID:', userID);
+        alert('Error: Invalid user ID. Please ensure you are logged in.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('CoverPhoto', file);
+    formData.append('UserID', userID);
+
+    $.ajax({
+        url: '/includes/UserFunctions.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            if (response.status === 'success') {
+                $('#popup').html('Cover Photo updated');
+            } else {
+                console.log('Server response:', response);
+                alert('Error: ' + (response.message || 'Failed to update Cover Photo'));
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', xhr, status, error);
+            alert('Unable to update Cover Photo');
+        }
+    });
+}
 
     window.triggerFilePicker = triggerFilePicker;
     window.uploadImage = uploadImage;
+    window.uploadCoverImage = uploadCoverImage;
 
     $('.loginForm').submit(function(e) {
         e.preventDefault();
@@ -130,50 +172,57 @@ $(function() {
             }
         });
     });
-
-    function changeData(button) {
-        const $btn = $(button);
-        const field = $btn.data('field');
-        const $container = $btn.closest('.inputGroup');
-        const $input = $container.find(`input[name="${field}"], textarea[name="${field}"]`);
-
-        const value = $input.val();
-        const userID = $input.data('userid');
-
-        if (!field || !value || !userID) {
-            console.error('Missing required data');
+    $('#saveAll').on('click', function (e) {
+        e.preventDefault();
+        const $form = $('#resultsForm');
+        const userID = $form.find('input[name="userID"]').val();
+        const $btn = $(this).prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin-pulse"></i> Saving…');
+        if (!userID) {
+            $('#dashboardUpdateMsg').text('Missing user ID.');
+            $btn.prop('disabled', false).text('Save All');
             return;
         }
 
+        const formData = $form.serializeArray();
+
         $.ajax({
-            url: '/includes/UserFunctions.php', // Updated path to match backend
+            url: '../includes/UserFunctions.php',
             type: 'POST',
-            data: {
-                action: 'updateField',
-                field: field,
-                value: value,
-                user_id: userID // Updated to match User Functions.php
-            },
-            success: function(response) {           
-                if (response.status === 'success') {
-                    $('#profileUpdateMsg').html('Updated successfully! Page will refresh in 5 seconds.');
-                    $btn.html('<i class="fa-solid fa-spinner fa-spin-pulse"></i>');                
-                    setTimeout(() => {                    
-                        $btn.html('Saved!');
-                        setTimeout(() => {
-                            window.location.href = '/dashboard';
-                        }, 2500);
-                    }, 2000);
+            data: formData,
+            dataType: 'json',
+            success: function (res) {
+                if (res.status === 'success') {
+                    $('#resultsUpdateMsg').text('Updated successfully! Refreshing…');
+                    $btn.text('Saved!');
+                    setTimeout(() => (window.location.href = '/dashboard'), 1500);
                 } else {
-                    $('#profileUpdateMsg').html('Error: ' + (response.message || 'Failed to update profile.'));
+                    $('#resultsUpdateMsg').text(res.message || 'Failed to update.');
+                    $btn.prop('disabled', false).text('Save All');
+                    console.log(res);
                 }
             },
-            error: function(xhr, status, error) {
-                $('#profileUpdateMsg').html('Error updating profile.');
-                console.error('AJAX Error:', xhr, status, error);
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('AJAX error:', {
+                    status: jqXHR.status,
+                    textStatus,
+                    errorThrown,
+                    responseText: jqXHR.responseText,
+                    contentType: jqXHR.getResponseHeader('Content-Type')
+                });
+
+                let msg = 'Error updating profile.';
+                try {
+                    const parsed = JSON.parse(jqXHR.responseText);
+                    if (parsed && parsed.message) msg = parsed.message;
+                } catch (e) { 
+                    
+                 }
+
+                $('#profileUpdateMsg').text(msg);
+                $btn.prop('disabled', false).text('Save All');
             }
         });
-    }
+    });
    function changeSocialMedia(button) {
         const $btn = $(button);
         const field = $btn.data('field');
@@ -248,7 +297,6 @@ $(function() {
         }
     }
 
-    window.changeData = changeData;
     window.changeSocialMedia = changeSocialMedia;
     window.deleteAccount = deleteAccount;
 });
