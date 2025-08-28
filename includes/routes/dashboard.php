@@ -2,7 +2,6 @@
 require_once dirname(__DIR__, 1) . '/config.php';
 require_once dirname(__DIR__, 2) . '/includes/controllers/UserController.php';
 require_once dirname(__DIR__, 2) . '/twig/vendor/autoload.php';
-
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -18,9 +17,10 @@ if (!$userID) {
 
 $pdo = getDbConnection();
 $query = "
- SELECT users.UserID, users.FirstName, users.Email, users.NiceName, users.Username,            
+ SELECT users.UserID, users.FirstName, users.Email, users.Username,            
            profile.Avatar, profile.Bio, profile.Gender, profile.RatingPref, 
-           profile.Subscriptions, profile.Website, profile.LastMod, profile.CoverPhoto, profile.Uploads, profile.Patreon
+           profile.Subscriptions, profile.Website, profile.LastMod, 
+           profile.CoverPhoto, profile.Uploads, profile.Patreon, profile.NiceName
     FROM users 
     LEFT JOIN profile ON users.UserID = profile.ProfileID 
     WHERE users.UserID = :user_id

@@ -2,6 +2,117 @@
 header('Content-Type: application/json');
 require_once('config.php');
 
+if (isset($_POST['UserID']) && is_numeric($_POST['UserID']) && $_POST['UserID'] > 0) {
+    $userID = (int)$_POST['UserID'];
+    $pdo = getDbConnection();
+
+    // Determine which file field is set
+    $field = null;
+    if (isset($_FILES['Avatar'])) {
+        $field = 'Avatar';
+        $uploadBase = dirname(__DIR__, 1) . '/assets/images/profile-images/';
+        $dbColumn = 'Avatar';
+    } elseif (isset($_FILES['CoverPhoto'])) {
+        $field = 'CoverPhoto';
+        $uploadBase = dirname(__DIR__, 1) . '/assets/images/cover-photos/';
+        $dbColumn = 'CoverPhoto';
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'No valid file field provided']);
+        exit;
+    }
+
+    $file = $_FILES[$field];
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    $maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (!in_array($file['type'], $allowedTypes)) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid file type']);
+        exit;
+    }
+    if ($file['size'] > $maxSize) {
+        echo json_encode(['status' => 'error', 'message' => 'File too large']);
+        exit;
+    }
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        echo json_encode(['status' => 'error', 'message' => 'Upload error']);
+        exit;
+    }
+
+    $userUploadDir = $uploadBase . $userID . '/';
+    if (!is_dir($userUploadDir)) {
+        mkdir($userUploadDir, 0777, true);
+    }
+    if (!is_writable($userUploadDir)) {
+        echo json_encode(['status' => 'error', 'message' => 'Upload directory not writable']);
+        exit;
+    }
+
+    // Clean filename
+    $originalFilename = pathinfo($file['name'], PATHINFO_BASENAME);
+    $filename = preg_replace('/[^A-Za-z0-9_\-\.]/', '_', $originalFilename);
+    $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    $nameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
+    $destination = $userUploadDir . $filename;
+
+    // Prevent overwriting
+    $counter = 1;
+    while (file_exists($destination)) {
+        $filename = $nameWithoutExt . '_' . $counter . '.' . $extension;
+        $destination = $userUploadDir . $filename;
+        $counter++;
+    }
+
+    // Delete old file if exists
+    try {
+        $stmt = $pdo->prepare("SELECT {$dbColumn} FROM profile WHERE ProfileID = :id");
+        $stmt->bindParam(':id', $userID, PDO::PARAM_INT);
+        $stmt->execute();
+        $oldFile = $stmt->fetchColumn();
+
+        if ($oldFile && file_exists($userUploadDir . $oldFile)) {
+            unlink($userUploadDir . $oldFile);
+        }
+    } catch (PDOException $e) {
+        
+    }
+
+    // Move new file
+    if (!move_uploaded_file($file['tmp_name'], $destination)) {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to save file']);
+        exit;
+    }
+
+    // Update DB
+    try {
+        $stmt = $pdo->prepare("UPDATE profile SET {$dbColumn} = :filename, LastMod = NOW() WHERE ProfileID = :id");
+        $stmt->bindParam(':filename', $filename);
+        $stmt->bindParam(':id', $userID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        echo json_encode(['status' => 'success', 'filename' => $filename]);
+    } catch (PDOException $e) {
+        unlink($destination);
+        echo json_encode(['status' => 'error', 'message' => 'Database update failed']);
+    }
+
+    exit;
+}
+
+if (isset($_POST['action']) && $_POST['action'] === 'deleteAccount') {
+    try {
+        $pdo = getDbConnection();
+        $stmt = $pdo->prepare('DELETE FROM users WHERE UserID = :userID');
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->execute();
+        echo json_encode(['status' => 'success', 'message' => 'Account deleted successfully']);
+    } catch (PDOException $e) {
+        http_response_code(500);
+        echo json_encode(['status' => 'error', 'message' => 'Failed to delete account']);
+    }
+    exit;
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['status' => 'error', 'message' => 'Method not allowed']);
@@ -15,50 +126,57 @@ if ($action !== 'changeData') {
     exit;
 }
 
-$profileFields = ['Email', 'Website', 'Patreon', 'Nickname', 'Bio'];
+$profileFields = ['Email', 'Website', 'Patreon', 'NiceName', 'Bio'];
 $socialFields = ['Facebook', 'Twitter', 'Instagram', 'YouTube'];
 
 try {
     $pdo = getDbConnection();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->beginTransaction();
 
-    // Load current profile row
-    $userID = $_POST['userID'] ?? null;
+    $userID = $_POST['userID'] ?? null; // ensure this matches your form name
     if (!$userID) {
         echo json_encode(['status' => 'error', 'message' => 'Missing user ID']);
         exit;
     }
 
-    // Update profile table
-    $cur = $pdo->prepare("SELECT Bio, Website, Patreon FROM profile WHERE ProfileID = :id");
+    // Load current profile row
+    $cur = $pdo->prepare("SELECT Bio, Website, Patreon, NiceName FROM profile WHERE ProfileID = :id");
     $cur->execute([':id' => $userID]);
-    $current = $cur->fetch(PDO::FETCH_ASSOC) ?: ['Bio' => null, 'Website' => null, 'Patreon' => null];
+    $current = $cur->fetch(PDO::FETCH_ASSOC) ?: ['Bio' => null, 'Website' => null, 'Patreon' => null, 'NiceName' => null];
 
-    $bio = $_POST['profile']['Bio'] ?? $current['Bio'];
-    $website = $_POST['profile']['Website'] ?? $current['Website'];
-    $patreon = $_POST['profile']['Patreon'] ?? $current['Patreon'];
+    $p = $_POST['profile'] ?? [];
 
-    $bio = ($bio === '') ? $current['Bio'] : $bio;
-    $website = ($website === '') ? $current['Website'] : $website;
-    $patreon = ($patreon === '') ? $current['Patreon'] : $patreon;
+    $bio = array_key_exists('Bio', $p) ? trim((string)$p['Bio']) : $current['Bio'];
+    $bio = (array_key_exists('Bio', $p) && $bio === '') ? null : $bio;
+
+    $website = array_key_exists('Website', $p) ? trim((string)$p['Website']) : $current['Website'];
+    $website = (array_key_exists('Website', $p) && $website === '') ? null : $website;
+
+    $patreon = array_key_exists('Patreon', $p) ? trim((string)$p['Patreon']) : $current['Patreon'];
+    $patreon = (array_key_exists('Patreon', $p) && $patreon === '') ? null : $patreon;
+
+    $nicename = array_key_exists('NiceName', $p) ? trim((string)$p['NiceName']) : $current['NiceName'];
+    $nicename = (array_key_exists('NiceName', $p) && $nicename === '') ? null : $nicename;
 
     $stmt = $pdo->prepare("
         UPDATE profile
         SET Bio = :bio,
             Website = :website,
             Patreon = :patreon,
+            NiceName = :nicename,
             LastMod = NOW()
         WHERE ProfileID = :profileID
     ");
+    $stmt->bindValue(':bio', $bio, $bio === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+    $stmt->bindValue(':website', $website, $website === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+    $stmt->bindValue(':patreon', $patreon, $patreon === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+    $stmt->bindValue(':nicename', $nicename, $nicename === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+    $stmt->bindValue(':profileID', (int)$userID, PDO::PARAM_INT);
+    $stmt->execute();
 
-    $stmt->execute([
-        ':bio' => $bio,
-        ':website' => $website,
-        ':patreon' => $patreon,
-        ':profileID' => (int)$userID,
-    ]);
-
-    // Load current social media profiles
+    // ----- Socials -----
+    // Build current map
     $smup = $pdo->prepare("SELECT Platform, ProfileURL FROM usersocials WHERE UserID = :socid");
     $smup->execute([':socid' => $userID]);
     $currentSocMed = [];
@@ -66,248 +184,74 @@ try {
         $currentSocMed[$row['Platform']] = $row['ProfileURL'];
     }
 
-    // Process social media fields
-    if (isset($_POST['socials']) && is_array($_POST['socials'])) {
+    // Index incoming socials by Platform for easy lookup
+    $incoming = [];
+    if (!empty($_POST['socials']) && is_array($_POST['socials'])) {
         foreach ($_POST['socials'] as $social) {
-            $platform = $social['Platform'] ?? null;
+            $platform   = $social['Platform']   ?? null;
             $profileURL = $social['ProfileURL'] ?? null;
-
-            if (!in_array($platform, $socialFields)) {
-                continue; // Skip invalid platforms
+            if ($platform !== null) {
+                $incoming[$platform] = $profileURL;
             }
+        }
+    }
 
-            // Use existing URL if new URL is empty
-            $profileURL = ($profileURL === '') ? ($currentSocMed[$platform] ?? null) : $profileURL;
+    // Prepared statements for reuse
+    $check = $pdo->prepare("SELECT COUNT(*) FROM usersocials WHERE UserID = :userID AND Platform = :platform");
+    $upd   = $pdo->prepare("
+        UPDATE usersocials
+        SET ProfileURL = :profileURL, LastMod = NOW()
+        WHERE UserID = :userID AND Platform = :platform
+    ");
+    $ins   = $pdo->prepare("
+        INSERT INTO usersocials (UserID, Platform, ProfileURL, LastMod)
+        VALUES (:userID, :platform, :profileURL, NOW())
+    ");
+    $del   = $pdo->prepare("
+        DELETE FROM usersocials WHERE UserID = :userID AND Platform = :platform
+    ");
 
-            // Check if the platform already exists for the user
-            $check = $pdo->prepare("SELECT COUNT(*) FROM usersocials WHERE UserID = :userID AND Platform = :platform");
-            $check->execute([':userID' => (int)$userID, ':platform' => $platform]);
-            $exists = $check->fetchColumn();
+    // Only touch platforms that were actually submitted.
+    foreach ($incoming as $platform => $profileURL) {
+        // Skip unknown platforms (assumes $socialFields whitelist exists)
+        if (isset($socialFields) && !in_array($platform, $socialFields, true)) {
+            continue;
+        }
 
+        $submitted = trim((string)($profileURL ?? '')); // will be '' if cleared
+
+        // Does a row exist now?
+        $check->execute([':userID' => (int)$userID, ':platform' => $platform]);
+        $exists = (int)$check->fetchColumn() > 0;
+
+        if ($submitted === '') {
+            // User cleared the field: delete the row (or set to NULL if you prefer)
             if ($exists) {
-                // Update existing record
-                $stmt = $pdo->prepare("
-                    UPDATE usersocials
-                    SET ProfileURL = :profileURL,
-                        LastMod = NOW()
-                    WHERE UserID = :userID AND Platform = :platform
-                ");
-                $stmt->execute([
-                    ':profileURL' => $profileURL,
-                    ':userID' => (int)$userID,
-                    ':platform' => $platform,
+                $del->execute([':userID' => (int)$userID, ':platform' => $platform]);
+            }
+        } else {
+            if ($exists) {
+                $upd->execute([
+                    ':profileURL' => $submitted,
+                    ':userID'     => (int)$userID,
+                    ':platform'   => $platform,
                 ]);
             } else {
-                // Insert new record
-                $stmt = $pdo->prepare("
-                    INSERT INTO usersocials (UserID, Platform, ProfileURL, LastMod)
-                    VALUES (:userID, :platform, :profileURL, NOW())
-                ");
-                $stmt->execute([
-                    ':userID' => (int)$userID,
-                    ':platform' => $platform,
-                    ':profileURL' => $profileURL,
+                $ins->execute([
+                    ':userID'     => (int)$userID,
+                    ':platform'   => $platform,
+                    ':profileURL' => $submitted,
                 ]);
             }
         }
     }
 
+    $pdo->commit();
     echo json_encode(['status' => 'success', 'message' => 'Profile updated successfully']);
 } catch (PDOException $e) {
+    if ($pdo && $pdo->inTransaction()) $pdo->rollBack();
     http_response_code(500);
     echo json_encode(['status' => 'error', 'message' => 'Database update failed: ' . $e->getMessage()]);
-    exit;
-}
-// Handle avatar upload
-if (isset($_POST['userID']) && isset($_FILES['Avatar'])) {
-        $userID = filter_var($_POST['UserID'], FILTER_VALIDATE_INT, [
-            'options' => ['min_range' => 1]
-        ]);
-        if ($userID === false) {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid userID']);
-            exit;
-        }
-
-        $file = $_FILES['Avatar'];
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        $maxSize = 5 * 1024 * 1024; // 5MB
-
-        if (!in_array($file['type'], $allowedTypes)) {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid file type. Only JPEG, PNG, or GIF allowed.']);
-            exit;
-        }
-        if ($file['size'] > $maxSize) {
-            echo json_encode(['status' => 'error', 'message' => 'File too large. Maximum size is 5MB.']);
-            exit;
-        }
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            echo json_encode(['status' => 'error', 'message' => 'File upload error.']);
-            exit;
-        }
-
-        $namespace = 'user-images-v1';
-        $hashedFolder = hash('sha256', $namespace . '-' . $userID);
-        $baseUploadDir = dirname(__DIR__, 1) . '/assets/images/user-profile-images/';
-        $userUploadDir = $baseUploadDir . $hashedFolder . '/';
-
-        if (!is_dir($userUploadDir)) {
-            mkdir($userUploadDir, 0777, true);
-        }
-
-        if (!is_writable($userUploadDir)) {
-            echo json_encode(['status' => 'error', 'message' => 'Upload directory not writable']);
-            exit;
-        }
-
-        $originalFilename = pathinfo($file['name'], PATHINFO_BASENAME);
-        $filename = preg_replace('/[^A-Za-z0-9_\-\.]/', '_', $originalFilename);
-        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        $nameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
-        $destination = $userUploadDir . $filename;
-
-        $counter = 1;
-        while (file_exists($destination)) {
-            $filename = $nameWithoutExt . '_' . $counter . '.' . $extension;
-            $destination = $userUploadDir . $filename;
-            $counter++;
-        }
-
-        try {
-            $pdo = getDbConnection();
-            $query = "SELECT Avatar FROM profile WHERE ProfileID = :profileID";
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':profileID', $userID, PDO::PARAM_INT);
-            $stmt->execute();
-            $oldAvatar = $stmt->fetchColumn();
-        } catch (PDOException $e) {
-            $oldAvatar = false;
-        }
-
-        if (!move_uploaded_file($file['tmp_name'], $destination)) {
-            echo json_encode(['status' => 'error', 'message' => 'Failed to move uploaded file']);
-            exit;
-        }
-
-        if ($oldAvatar && file_exists($userUploadDir . $oldAvatar)) {
-            unlink($userUploadDir . $oldAvatar);
-        }
-
-        try {
-            $pdo = getDbConnection();
-            $stmt = $pdo->prepare("UPDATE profile SET Avatar = :avatar, LastMod = NOW() WHERE ProfileID = :profileID");
-            $stmt->bindParam(':avatar', $filename);
-            $stmt->bindParam(':profileID', $userID, PDO::PARAM_INT);
-            $stmt->execute();
-
-            echo json_encode(['status' => 'success', 'filename' => $filename]);
-        } catch (PDOException $e) {
-            if (file_exists($destination)) {
-                unlink($destination);
-            }
-            echo json_encode(['status' => 'error', 'message' => 'Database update failed']);
-        }
-        exit;
-    }
-if (isset($_POST['userID']) && isset($_FILES['CoverPhoto'])) {
-        $userID = filter_var($_POST['UserID'], FILTER_VALIDATE_INT, [
-            'options' => ['min_range' => 1]
-        ]);
-        if ($userID === false) {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid userID']);
-            exit;
-        }
-
-        $file = $_FILES['CoverPhoto'];
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        $maxSize = 5 * 1024 * 1024; // 5MB
-
-        if (!in_array($file['type'], $allowedTypes)) {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid file type. Only JPEG, PNG, or GIF allowed.']);
-            exit;
-        }
-        if ($file['size'] > $maxSize) {
-            echo json_encode(['status' => 'error', 'message' => 'File too large. Maximum size is 5MB.']);
-            exit;
-        }
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            echo json_encode(['status' => 'error', 'message' => 'File upload error.']);
-            exit;
-        }
-
-        $namespace = 'user-images-v1';
-        $hashedFolder = hash('sha256', $namespace . '-' . $userID);
-        $baseUploadDir = dirname(__DIR__, 1) . '/assets/images/user-cover-photos/';
-        $userUploadDir = $baseUploadDir . $hashedFolder . '/';
-
-        if (!is_dir($userUploadDir)) {
-            mkdir($userUploadDir, 0777, true);
-        }
-
-        if (!is_writable($userUploadDir)) {
-            echo json_encode(['status' => 'error', 'message' => 'Upload directory not writable']);
-            exit;
-        }
-
-        $originalFilename = pathinfo($file['name'], PATHINFO_BASENAME);
-        $filename = preg_replace('/[^A-Za-z0-9_\-\.]/', '_', $originalFilename);
-        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        $nameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
-        $destination = $userUploadDir . $filename;
-
-        $counter = 1;
-        while (file_exists($destination)) {
-            $filename = $nameWithoutExt . '_' . $counter . '.' . $extension;
-            $destination = $userUploadDir . $filename;
-            $counter++;
-        }
-
-        try {
-            $pdo = getDbConnection();
-            $query = "SELECT CoverPhoto FROM profile WHERE ProfileID = :profileID";
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':profileID', $userID, PDO::PARAM_INT);
-            $stmt->execute();
-            $oldAvatar = $stmt->fetchColumn();
-        } catch (PDOException $e) {
-            $oldAvatar = false;
-        }
-
-        if (!move_uploaded_file($file['tmp_name'], $destination)) {
-            echo json_encode(['status' => 'error', 'message' => 'Failed to move uploaded file']);
-            exit;
-        }
-
-        if ($oldAvatar && file_exists($userUploadDir . $oldAvatar)) {
-            unlink($userUploadDir . $oldAvatar);
-        }
-
-        try {
-            $pdo = getDbConnection();
-            $stmt = $pdo->prepare("UPDATE profile SET CoverPhoto = :cover, LastMod = NOW() WHERE ProfileID = :profileID");
-            $stmt->bindParam(':cover', $filename);
-            $stmt->bindParam(':profileID', $userID, PDO::PARAM_INT);
-            $stmt->execute();
-
-            echo json_encode(['status' => 'success', 'filename' => $filename]);
-        } catch (PDOException $e) {
-            if (file_exists($destination)) {
-                unlink($destination);
-            }
-            echo json_encode(['status' => 'error', 'message' => 'Database update failed']);
-        }
-        exit;
-    }
-if (isset($_POST['action']) && $_POST['action'] === 'deleteAccount') {
-    try {
-        $pdo = getDbConnection();
-        $stmt = $pdo->prepare('DELETE FROM users WHERE UserID = :userID');
-        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->execute();
-        echo json_encode(['status' => 'success', 'message' => 'Account deleted successfully']);
-    } catch (PDOException $e) {
-        http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'Failed to delete account']);
-    }
     exit;
 }
 

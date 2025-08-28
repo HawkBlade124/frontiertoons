@@ -14,7 +14,7 @@ if (!isset($twig)) {
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 $pdo = getDbConnection();
 $query = "
- SELECT users.UserID, users.FirstName, users.Email, users.NiceName, users.Username            
+ SELECT users.UserID, users.FirstName, users.Email, users.Username, profile.NiceName
     FROM users 
     LEFT JOIN profile ON users.UserID = profile.ProfileID 
     WHERE users.Username = :username

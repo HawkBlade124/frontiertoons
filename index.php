@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -22,8 +23,7 @@ $loggedIn = $_SESSION['logged_in'] ?? false;
 $session = [
     'UserID'   => $_SESSION['UserID'] ?? null,
     'Username' => $_SESSION['Username'] ?? null,
-    'logged_in'  => $_SESSION['logged_in'] ?? false,
-    
+    'logged_in'  => $_SESSION['logged_in'] ?? false,    
 ];
 
 // Register these as Twig globals
@@ -54,7 +54,8 @@ $routes = [
     '/forgot-password' => 'forgot-password.php',
     '/blog' => 'blog.php',
     '/profile-view' => 'profile-view.php',
-    '/upload' => 'upload-series.php'
+    '/upload' => 'upload-series.php',
+    '/thank-you' => 'thank-you.php'    
 ];
 
 $routeFile = $routes[$uri] ?? null;

@@ -1,11 +1,25 @@
 $(function() {
-    function triggerFilePicker() {
+    //Enables avatar upload functionality
+    function avatarUpload() {
         document.getElementById("avatarInput").click();
     }
+    //Enables avatar upload functionality
+    function coverPhotoUpload() {
+        document.getElementById("coverInput").click();
+    }
+    // Handle avatar file selection
+    $('#avatarInput').on('change', function() {
+        uploadImage(); // Call uploadImage when a file is selected
+    });
+
+    // Handle cover photo file selection
+    $('#coverInput').on('change', function() {
+        uploadCoverImage(); // Call uploadCoverImage when a file is selected
+    });
 
 function uploadImage() {
     const file = $('#avatarInput')[0].files[0];
-    const userID = $('#userAvatar').data('userid'); // <- now correct
+    const userID = $('#dashboardAvatar img').data('userid'); // <- now correct
 
     if (!file) {
         alert('Please select an image to upload.');
@@ -46,46 +60,48 @@ function uploadImage() {
 
 
     function uploadCoverImage() {
-    const file = $('#coverInput')[0].files[0];
-    const userID = $('#coverPhoto').data('userid');
+        const file = $('#coverInput')[0].files[0];
+        const userID = $('#coverPhoto').attr('data-userid');
 
-    if (!file) {
-        alert('Please select an image to upload.');
-        return;
-    }
-
-    if (!userID || isNaN(userID) || parseInt(userID) <= 0) {
-        console.error('Invalid UserID:', userID);
-        alert('Error: Invalid user ID. Please ensure you are logged in.');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('CoverPhoto', file);
-    formData.append('UserID', userID);
-
-    $.ajax({
-        url: '/includes/UserFunctions.php',
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            if (response.status === 'success') {
-                $('#popup').html('Cover Photo updated');
-            } else {
-                console.log('Server response:', response);
-                alert('Error: ' + (response.message || 'Failed to update Cover Photo'));
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error:', xhr, status, error);
-            alert('Unable to update Cover Photo');
+        if (!file) {
+            alert('Please select an image to upload.');
+            return;
         }
-    });
-}
 
-    window.triggerFilePicker = triggerFilePicker;
+        if (!userID || isNaN(userID) || parseInt(userID) <= 0) {
+            console.error('Invalid UserID:', userID);
+            alert('Error: Invalid user ID. Please ensure you are logged in.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('CoverPhoto', file);
+        formData.append('UserID', userID);
+
+        $.ajax({
+            url: '/includes/UserFunctions.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType:'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#popup').html('Cover Photo updated');
+                } else {
+                    console.log('Server response:', response);
+                    alert('Error: ' + (response.message || 'Failed to update Cover Photo'));
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', xhr, status, error);
+                alert('Unable to update Cover Photo');
+            }
+        });
+    }
+
+    window.avatarUpload = avatarUpload;
+    window.coverPhotoUpload = coverPhotoUpload;
     window.uploadImage = uploadImage;
     window.uploadCoverImage = uploadCoverImage;
 
@@ -161,14 +177,16 @@ function uploadImage() {
             },
             data: JSON.stringify(data),
             success: function(response) {
+                console.log("Success callback response:", response);
                 if (response.success) {
-                    window.location.href = '/login?registered=1';
+                    window.location.href = '/thank-you.html';
                 } else {
                     alert(response.error || 'Registration failed.');
                 }
             },
-            error: function(xhr) {
-                alert('Registration error: ' + xhr.responseText);
+            error: function(xhr, status, error) {
+                console.error("Error callback triggered:", xhr, status, error);
+                alert('Registration error: ' + (xhr.responseText || error || status));
             }
         });
     });

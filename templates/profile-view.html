@@ -1,38 +1,119 @@
 {% extends 'base.index.html' %}
 {% set nicename = users.NiceName %}
 {% set username = users.Username %}
+{% set patreon = users.patreon %}
+{% set count = profile.Uploads %}
 
 {% block title %}{{username}}'s Profile{% endblock %}
 {% block content %}
 <style>
-#mainProfile {  display:grid;  place-content:center;}
-#profileHead{  display: flex;  flex-direction: column;  align-items: center;}
+#profileAvatar {  max-width: 250px;  border: 5px solid transparent;  border-radius: 10px;  background:  linear-gradient(#fff 0 0) padding-box, linear-gradient(to left, #00C853, #B2FF59) border-box;}
+#avatarImg{  border-radius:10px;}
+#profileCoverPhoto {  position: relative;  }
+
+#profileHead {
+  display:flex;
+  justify-content: space-between;    
+  box-sizing: border-box;  
+}
+#profileSocials{
+  display: flex;
+  justify-content: flex-end;
+  gap:35px;
+  margin-top:25px;
+}
+.socialIcons {
+  font-size:25px;
+}
+#authorInfo {
+  display: flex;
+  gap: 35px;
+}
+#profileName{
+  display:flex;
+  align-items: center;
+  gap:35px;
+  font-size:65px;
+  font-weight: 600;
+}
+#patreonBtn {
+  display: block;
+  font-size: 19px;
+  text-wrap: nowrap;
+  color:#000;
+}
+#profileLike {
+  font-size:25px;
+}
+#profileLike button{
+  font-size:25px;
+  background:none;
+  border:none;
+  margin-top:15px;
+  color:#43c6db
+}
+#mainProfile h2{
+  margin-top:23px;
+}
+#mainProfile {
+  width:100%;
+}
+#profileWrapper{
+	margin:35px auto;
+}
 </style>
+        <img src="/assets/images/cover-photos/{{users.UserID}}/{{users.CoverPhoto}}" alt="{{users.Username}} Cover Photo ">   
 <div id="profileWrapper">
-    <div id="profileCoverPhoto">
-        <img src="/assets/images/user-cover-photo/{{users.CoverPhoto}}" alt="">
-    </div>
-</div>
 <div id="mainProfile">
     <div id="profileHead">
-        <img src="/assets/images/user-cover-photos/{{users.CoverPhoto}}" alt="{{users.Username}} Cover Photo ">
-        <div id="profileName">
-            <img id="profileAvatar" src="/assets/images/user-profile-images/{{ users.UserID|hash('user-images-v1') }}/{{ users.Avatar|default('default-avatar.jpg') }}" alt="User Avatar" data-userid="{{ users.UserID }}">
-            {% if nicename is defined %}
-                {{nicename}}
-            {% else %}
-                {{username}}
-            {% endif %}
+        <div id="authorInfo">
+            <div id="profileAvatar">
+                <img id="avatarImg" src="/assets/images/profile-images/{{ users.UserID }}/{{ users.Avatar }}" alt="User Avatar" data-userid="{{ users.UserID }}"> 
+            </div>  
+  
+            <div id="nameBio">
+                <div id="profileName">
+                    {% if nicename is not null %}
+                      <h1>{{nicename}}</h1>
+                    {% else %}
+                       <h1>{{username}}</h1>
+                    {% endif %}  
+                    <div id="profileLike">                                   
+                    <button >
+                        <i class="fa-duotone fa-solid fa-thumbs-up"></i>
+                    </button>
+                </div>     
+                </div>
+
+                <div id="authorBio">
+                    {{users.Bio}}
+                </div>
+ 
+            </div>
         </div>
 
+            <div id="profileSocials">
+
+                {% if patreon is not null %}
+                    <div id="patreonBtn">
+                        <a class="btn-primary" href="{{patreon}}">Visit My Patreon</a>
+                    </div>
+                    {% else %}
+                {% endif %}
+                <a class="socialIcons" href="{{socials.facebook}}"><i class="fa-brands fa-facebook"></i></a>
+                <a class="socialIcons" href="{{socials.instagram}}"><i class="fa-brands fa-instagram"></i></a>
+                <a class="socialIcons" href="{{socials.twitter}}"><i class="fa-brands fa-x-twitter"></i></a>
+                <a class="socialIcons" href="{{socials.youtube}}"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+
     </div>
-    <div id="authorsBlock">
-        <div id="authorBio">
-            {{users.Bio}}
-        </div>
+    <div id="authorsBlock">     
+        <h2>My Works</h2>
+        {% if count > 1  %}
+        {% else %}
+        This author hasn't uploaded yet. Please come back later.
+        {% endif %}
     </div>
 </div>
-<pre>
-    {{dump(_context)}}
-</pre>
+</div>
 {% endblock %}

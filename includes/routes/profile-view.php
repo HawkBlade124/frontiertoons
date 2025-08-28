@@ -30,9 +30,10 @@ if (!$userName) {
 
 // Prepare SQL
 $query = "
-    SELECT users.UserID, users.FirstName, users.Email, users.NiceName, users.Username,            
+    SELECT users.UserID, users.FirstName, users.Email, users.Username,            
            profile.Avatar, profile.Bio, profile.Gender, profile.RatingPref, 
-           profile.Subscriptions, profile.Website, profile.LastMod, profile.CoverPhoto
+           profile.Subscriptions, profile.Website, profile.LastMod, 
+           profile.CoverPhoto, profile.patreon, profile.NiceName, profile.Uploads
     FROM users 
     LEFT JOIN profile ON users.UserID = profile.ProfileID 
     WHERE users.Username = :username
@@ -43,15 +44,15 @@ $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $socialQuery = "
-    SELECT usersocials.UserID, usersocials.platform, usersocials.ProfileURL
-    FROM usersocials
-    LEFT JOIN users ON usersocials.UserID = users.UserID
-    WHERE usersocials.UserID = :socuserID
+  SELECT Platform, ProfileURL
+  FROM usersocials
+  WHERE UserID = :uid
+  ORDER BY LastMod DESC
 ";
 $stmt3 = $pdo->prepare($socialQuery);
-$stmt3->bindParam(':socuserID', $userID, PDO::PARAM_INT);
-$stmt3->execute();
-$socials = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+$stmt3->execute([':uid' => $user['UserID']]);
+$rows = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+
 
 if (!$user) {
     echo "User not found.";
@@ -60,14 +61,21 @@ if (!$user) {
 $twig->addFilter(new \Twig\TwigFilter('hash', function ($value, $namespace = 'user-images-v1') {
     return hash('sha256', $namespace . '-' . $value);
 }));
+$socialsByPlatform = [];
+foreach ($rows as $r) {
+    $key = strtolower(trim($r['Platform'])); // e.g., 'facebook', 'twitter', 'instagram', 'youtube'
+    if (!isset($socialsByPlatform[$key]) && !empty($r['ProfileURL'])) {
+        $socialsByPlatform[$key] = $r['ProfileURL'];
+    }
+}
 
 // Render Twig
 echo $twig->render('profile-view.html', [
-    'session'   => $session,
-    'users'     => $user,
-    'userID'    => $userID,
-    'username'  => $username,
-    'logged_in' => $loggedIn,
-    'profileID' => $profileID,
-    'socials' => $socials
+    'session'    => $session,
+    'users'      => $user,
+    'userID'     => $user['UserID'],
+    'username'   => $user['Username'],
+    'logged_in'  => $loggedIn,
+    'profileID'  => $user['UserID'],
+    'socials'    => $socialsByPlatform,   // << pass the map
 ]);

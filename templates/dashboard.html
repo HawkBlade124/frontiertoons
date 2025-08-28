@@ -23,11 +23,12 @@
     <div id="dashboardWrapper"> 
         <div id="dashboardHeader">
             <div id="dashboardHeadLeft">
-                <div id="dashboardAvatar" onclick="triggerFilePicker()">
-                    <img id="dashboardAvatar" src="/assets/images/user-profile-images/{{ users.UserID|hash('user-images-v1') }}/{{ users.Avatar|default('default-avatar.jpg') }}" alt="User Avatar" data-userid="{{ users.UserID }}">
+                <div id="dashboardAvatar" onclick="avatarUpload()">
+                    <img id="avatarImg" src="/assets/images/profile-images/{{ users.UserID }}/{{ users.Avatar|default('default-avatar.jpg') }}" data-userid="{{ users.UserID }}" alt="User Avatar">
                     <span class="changeAvatar"><i class="fa-solid fa-pencil"></i></span>
-                    <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadImage()" />
+                    <input type="file" id="avatarInput" accept="image/*" style="display:none">
                 </div>
+
                 <div id="dashboardWelcomeText">
                     <p>Welcome {{ users.FirstName }}!</p>            
                     <small>Last Updated: {{users.LastMod}}</small>
@@ -38,10 +39,12 @@
                 <a class="signoutBtn" href="/logout">Sign Out</a>                
             </div>
         </div>
-        <div id="dashboardCoverPhoto" onclick="triggerFilePicker()">
-            <img id="coverPhoto" src="/assets/images/user-cover-photos/{{ users.UserID|hash('user-images-v1') }}/{{ users.CoverPhoto|default('default-cover.jpg') }}" alt="User Cover Photo" data-userid="{{ users.UserID }}">
+        <div id="dashboardCoverPhoto" onclick="coverPhotoUpload()">
+            <img id="coverPhoto"
+                src="/assets/images/cover-photos/{{ users.UserID }}/{{ users.CoverPhoto|default('default-cover.jpg') }}"
+                data-userid="{{ users.UserID }}" alt="User Cover Photo">
             <span class="changeCoverPhoto"><i class="fa-solid fa-pencil"></i></span>
-            <input type="file" id="coverInput" accept="image/*" style="display: none;" onchange="uploadCoverImage()" />
+            <input type="file" id="coverInput" accept="image/*" style="display:none">
         </div>
         <div id="resultsSection">
                 <div id="resultsInnerHead">     
@@ -77,7 +80,7 @@
                             <div class="inputGroup">
                                 <label for="NiceName">Nickname:</label>
                                 <div class="inputIcons">
-                                    <input type="text" name="users[NiceName]" value="{{users.NiceName}}" >
+                                    <input type="text" name="profile[NiceName]" value="{{users.NiceName}}" >
                                 </div>
                             </div>
                             <div class="inputGroup">

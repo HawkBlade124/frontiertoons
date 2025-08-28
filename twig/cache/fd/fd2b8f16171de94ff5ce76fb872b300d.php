@@ -58,32 +58,41 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
     <script src=\"/assets/js/functions/popovers.js\"></script> 
     <script src=\"https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js\"></script>
+        <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '1752054');
+</script>
+    <!-- End MailerLite Universal -->
 </head>
 <div id=\"popup\" style=\"display:none\"></div>
 <body>
     
     ";
-        // line 19
+        // line 28
         if ((($context["hideHeaderFooter"] ?? null) == false)) {
-            // line 20
+            // line 29
             yield "        ";
-            yield from $this->load("header.html", 20)->unwrap()->yield($context);
-            // line 21
+            yield from $this->load("header.html", 29)->unwrap()->yield($context);
+            // line 30
             yield "    ";
         }
-        // line 22
+        // line 31
         yield "       ";
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 25
+        // line 34
         yield "    ";
         if ((($context["hideHeaderFooter"] ?? null) == false)) {
-            // line 26
+            // line 35
             yield "        ";
-            yield from $this->load("footer.html", 26)->unwrap()->yield($context);
-            // line 27
+            yield from $this->load("footer.html", 35)->unwrap()->yield($context);
+            // line 36
             yield "    ";
         }
-        // line 28
+        // line 37
         yield "</body>
 </html>
 ";
@@ -101,14 +110,14 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
         yield from [];
     }
 
-    // line 22
+    // line 31
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 23
+        // line 32
         yield "        Default content
         ";
         yield from [];
@@ -135,7 +144,7 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  112 => 23,  105 => 22,  94 => 4,  87 => 28,  84 => 27,  81 => 26,  78 => 25,  75 => 22,  72 => 21,  69 => 20,  67 => 19,  49 => 4,  44 => 1,);
+        return array (  121 => 32,  114 => 31,  103 => 4,  96 => 37,  93 => 36,  90 => 35,  87 => 34,  84 => 31,  81 => 30,  78 => 29,  76 => 28,  49 => 4,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -154,6 +163,15 @@ class __TwigTemplate_ce62608e6e8a1be953d57f9138296cb0 extends Template
     <script src=\"/assets/js/functions/UserFunctions.js\"></script>        
     <script src=\"/assets/js/functions/popovers.js\"></script> 
     <script src=\"https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js\"></script>
+        <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '1752054');
+</script>
+    <!-- End MailerLite Universal -->
 </head>
 <div id=\"popup\" style=\"display:none\"></div>
 <body>

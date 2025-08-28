@@ -28,14 +28,13 @@ body{
   background:#030c15;
   color:#fff;
 }
-header, #headerWrapper, #navList, img{
+header, #headerWrap, #navList, img{
 	width:100%;	
 }
 header{
 	background:#118C46;
 	padding:13px;
-	box-sizing: border-box;		
-	margin-bottom:15px;	
+	box-sizing: border-box;			
 }
 input{
 	height: 25px;
@@ -48,13 +47,13 @@ input{
 	font-size: 16px;
 	padding-left:5px;
 }
-#headerWrapper{
+#headerWrap{
 	display:grid;
   grid-template-columns: 0.2fr 1fr 0.2fr;
 	align-items: center;
 	gap:35px;
 }
-#headerWrapper #siteLogo{
+#headerWrap #siteLogo{
 	font-size:25px;
 }
 #siteLogo a{
@@ -424,4 +423,34 @@ p.formText{
   grid-template-columns: 1fr 1fr;
 	gap:35px;
   width:100%;
+}
+#headerWrap, #footerWrap, #profileWrapper {
+  display:flex;
+  max-width:1600px;
+  margin:0 auto;
+}
+#footerWrap{
+  flex-direction: column;
+  margin-top:65px;
+}
+#footerTop{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+  justify-content: space-between;
+  
+}
+.footLinkList{
+  padding-left:0;  
+}
+.footLinkList li{
+  padding:10px 0
+}
+#copyright{
+  display:flex;
+  justify-content: space-between;  
+  padding:25px 0;
+}
+footer{
+	padding:35px 0;
+	background:#021323;
 }

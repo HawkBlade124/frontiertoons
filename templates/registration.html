@@ -1,12 +1,67 @@
 {% extends 'base.index.html' %}
+
 {% block title %}Begin your adventure{% endblock %}
 {% block content %}
+<style>
+
+.registrationWrap {
+  display:flex;
+ justify-content: space-between;
+  padding:40px;
+  box-sizing:border-box;
+  max-width:1350px;
+  margin:0 auto;
+  gap: 35px;
+}
+.leftSide{
+  display: flex;
+  justify-content: center;  
+  width:100%;
+  font-size:21px;
+  line-height: 2;
+  border:1px solid #17A68C;
+		background:#082640;
+  border-radius:20px;
+  padding:35px;
+}
+.leftSide ul{
+    list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.leftSide ul li{
+    position: relative;
+  padding-left: 1.5em;
+}
+.leftSide li::before {
+  content: "\f00c"; /* check icon unicode */
+  font-family: "Font Awesome 7 Pro"; /* your kit’s font name */
+  font-weight: 900; /* solid weight */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #28a745; /* green */
+}
+
+
+</style>
         {% if error == 'invalid' %}
         <div class="alert alert-danger">
             Invalid username or password.
         </div>
-        {% endif %}
-<div class="formWrapper">
+        {% endif %}        
+<div class="registrationWrap">
+    <div class="leftSide">
+        <div class="">
+            Welcome to FrontierToons! With an account, you can do the following for <span class="bigFont">FREE</span>:
+            <ul class="checklist">
+                <li>Unlimited reading without tokens or gold</li>
+                <li>Follow your favorite authors</li>
+                <li>Receive weekly updates</li>
+                <li>Be one of the first to read the newest and latest FrontierToon</li>                
+            </ul>
+        </div>
+    </div>
     <div class="formRight">
         <form class="registrationForm" method="POST" action="/includes/auth-handler.php">
             <div class="registerTop">

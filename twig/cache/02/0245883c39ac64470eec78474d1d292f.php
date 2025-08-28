@@ -40,10 +40,10 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
         $macros = $this->macros;
         // line 1
         yield "<header>
-    <div id=\"headerWrapper\">
+    <div id=\"headerWrap\">
 
         <div id=\"siteLogo\">
-            <a :href=\"homeUrl\">FrontierToons</a>
+            <a href=\"/\">FrontierToons</a>
         </div>
          <div class=\"searchWrapper\">
             <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>
@@ -213,10 +213,10 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
     public function getSourceContext(): Source
     {
         return new Source("<header>
-    <div id=\"headerWrapper\">
+    <div id=\"headerWrap\">
 
         <div id=\"siteLogo\">
-            <a :href=\"homeUrl\">FrontierToons</a>
+            <a href=\"/\">FrontierToons</a>
         </div>
          <div class=\"searchWrapper\">
             <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>
