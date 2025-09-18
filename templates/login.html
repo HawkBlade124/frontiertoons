@@ -1,6 +1,12 @@
 {% extends 'base.index.html' %}
 {% block title %}Begin your adventure{% endblock %}
 {% block content %}
+<style>
+.loginBtn{
+    font-size:15px;
+}
+</style>
+<link rel="stylesheet" href="../assets/css/login.css">
         {% if error == 'invalid' %}
         <div class="alert alert-danger">
             Invalid username or password.
@@ -26,7 +32,7 @@
                 </div>
             </input-group>
             <div class="formBottom">
-                <button class="loginBtn" name="login">Login <i class="fa-slab fa-regular fa-arrow-right-to-bracket"></i></button>
+                <button class="loginBtn btn-primary" name="login">Login <i class="fa-regular fa-arrow-right-to-bracket"></i></button>
                 <p class="forgotPassword"><a href="/forgot-password">Forgot Password?</a></p>
             </div>
         </form>        

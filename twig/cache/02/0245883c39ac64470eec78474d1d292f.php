@@ -43,7 +43,7 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
     <div id=\"headerWrap\">
 
         <div id=\"siteLogo\">
-            <a href=\"/\">FrontierToons</a>
+            <a href=\"/\"><img src=\"../assets/images/frontier-toons-logo.png\" alt=\"Frontier Toons Logo\"></a>
         </div>
          <div class=\"searchWrapper\">
             <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>
@@ -216,7 +216,7 @@ class __TwigTemplate_a86b7be2021bc2b5ca6a9defbc709aaa extends Template
     <div id=\"headerWrap\">
 
         <div id=\"siteLogo\">
-            <a href=\"/\">FrontierToons</a>
+            <a href=\"/\"><img src=\"../assets/images/frontier-toons-logo.png\" alt=\"Frontier Toons Logo\"></a>
         </div>
          <div class=\"searchWrapper\">
             <button class=\"search\" type=\"submit\"><i class=\"fa-slab fa-regular fa-magnifying-glass\"></i></button>

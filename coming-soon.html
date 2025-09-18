@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Coming Soon — Frontier Toons</title>
+  <!-- Block indexing until launch -->
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    :root { --bg:#0b0b10; --fg:#e7e7ee; --accent:#8b5cf6; }
+    * { box-sizing:border-box }
+    html,body { height:100% }
+    body {
+      margin:0; font:16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--fg); background:radial-gradient(1000px 600px at 75% 0%, #1d1d28 0, #0b0b10 60%);
+      display:flex; align-items:center; justify-content:center; padding:32px;
+    }
+    .card {
+      width:min(680px, 100%); border:1px solid #2b2b39; border-radius:24px; padding:32px;
+      backdrop-filter: blur(6px); background:rgba(20,20,30,0.65);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      text-align:center;
+    }
+    h1 { margin:0 0 8px; font-size: clamp(28px, 4vw, 40px) }
+    p.lead { margin:0 0 24px; color:#bdbdd3 }
+    .count { display:flex; gap:12px; justify-content:center; margin:16px 0 28px }
+    .tile { padding:12px 16px; border-radius:12px; border:1px solid #2b2b39; min-width:84px }
+    .tile b { display:block; font-size:28px }
+    form { display:flex; gap:8px; justify-content:center; flex-wrap:wrap }
+    input[type="email"]{ padding:12px 14px; border-radius:12px; border:1px solid #2b2b39; background:#13131b; color:#fff; min-width:240px }
+    button { padding:12px 16px; border:0; border-radius:12px; background:var(--accent); color:#fff; cursor:pointer; }
+    .tiny { margin-top:12px; font-size:12px; color:#a3a3bb }
+    div img {
+      width:100%; 
+      max-width: 450px;
+      margin-bottom:35px;
+    }
+  </style>
+  <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '1752054');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="headline">
+      <div ciass="siteLogo">
+    <img src="/assets/images/frontier-toons-logo.png" alt="FrontierToons">
+  </div>
+    <h1 id="headline">We’re launching soon</h1>
+    <p class="lead">Something awesome is cooking. Drop your email and we’ll ping you.</p>
+
+    <!-- <div class="count" aria-live="polite">
+      <div class="tile"><b id="d">0</b>Days</div>
+      <div class="tile"><b id="h">0</b>Hours</div>
+      <div class="tile"><b id="m">0</b>Minutes</div>
+      <div class="tile"><b id="s">0</b>Seconds</div>
+    </div> -->
+
+<div class="ml-embedded" data-form="TOgzPH"></div>
+    <div class="tiny">We won’t spam. Unsubscribe anytime.</div>
+  </main>
+
+  <!-- <script>
+    // Set your target launch date (YYYY-MM-DDTHH:MM:SS)
+    const target = new Date("2025-10-01T16:00:00").getTime();
+    const $ = id => document.getElementById(id);
+    setInterval(() => {
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+      const d = Math.floor(diff/86400000);
+      const h = Math.floor(diff%86400000/3600000);
+      const m = Math.floor(diff%3600000/60000);
+      const s = Math.floor(diff%60000/1000);
+      $("d").textContent=d; $("h").textContent=h; $("m").textContent=m; $("s").textContent=s;
+    }, 1000);
+  </script> -->
+</body>
+</html>

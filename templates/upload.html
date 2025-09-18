@@ -1,52 +1,86 @@
 {% extends 'base.index.html' %}
 {% block title %}Get Published{% endblock %}
 {% block content %}
-<div id="policy">
-    <h1>Lets Get Started, {{session.Username}}!</h1>
-        <div class="inputGroup">
-            <label for="Title">Webtoon Title</label>
-            <div class="inputIcons">                            
-                <input type="text" name="Title" data-userID="{{users.UserID}}" placeholder="Enter the name of your webtoon">
-            </div>
-            <div class="btnWrap">
-                <button class="btn-primary changeDataBtn" onclick="changeSocialMedia(this)" data-field="Platform">Update</button>                        
-            </div>
-        </div>
-        <div class="inputGroup">
-            <label for="Description">Description</label>
-            <div class="inputIcons">
-                <textarea name="Description" rows="15" cols="100" data-userID="{{users.UserID}}"></textarea>
-            </div>
-            <div class="btnWrap">
-                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
-            </div>
-        </div>
-        <div class="inputGroup">
-            <label for="MaturityCheck">For Mature Audiences Only?</label>
-            <div class="inputIcons checkbox">
+<style>
+    
+#uploadForm {
+  display:flex;
+  justify-content: center;  
+  gap: 65px;
+  margin:65px
+}
+#thumbnailUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border:4px dashed;
+  height:165px;
+  width:200px;
+  border-radius: 13px;
+}
 
+</style>
+        <div class="uploadProgress">
+            <div class="progressDivider"><span class="circle active">1</span> Upload Webtoon</div>
+            <div class="progressDivider"><span class="circle inactive">2</span> Episodes</div>
+        </div>
+        <div id="uploadForm">            
+            <div id="thumbnailUpload">
+                Webtoon Thumbnail
+                <i class="fa-duotone fa-regular fa-image"></i>
             </div>
-            <div class="btnWrap">
-                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
+            <div class="formWrap">
+                <div class="inputGroup">
+                    <label for="MaturityCheck">Maturity Rating</label>
+                    <select>
+                        <option>All-Ages</option>
+                        <option>Teen</option>
+                        <option>Young Adult</option>
+                        <option>Mature</option>
+                    </select>
+                </div>
+               <div class="inputGroup">
+                    <label for="MaturityCheck">Genre</label>
+                    <select>
+                        <option>Romance</option>
+                        <option>Fantasy</option>
+                        <option>Action</option>
+                        <option>Drama</option>
+                        <option>Slice of Life</option>
+                        <option>Thriller</option>
+                        <option>Horror</option>
+                        <option>Comedy</option>
+                        <option>Supernatural</option>
+                        <option>Sci-Fi</option>
+                        <option>Mystery</option>
+                        <option>Historical</option>
+                        <option>Adventure</option>
+                        <option>Sports</option>
+                        <option>Superhero</option>
+                        <option>BL / GL</option>
+                        <option>School Life</option>
+                        <option>Urban Fantasy</option>
+                        <option>Post-Apocalyptic</option>
+                        <option>Gaming / eSports / LitRPG</option>
+                    </select>
+                </div>
+                <div class="inputGroup">
+                    <label for="Title">Webtoon Title</label>            
+                    <div class="inputIcons">                            
+                        <input type="text" name="Title" data-userID="{{users.UserID}}" placeholder="Enter the name of your webtoon">
+                    </div>
+                </div>
+                <div class="inputGroup">
+                    <label for="Description">Description</label>
+                    <div class="inputIcons">
+                        <textarea name="Description" rows="15" cols="100" data-userID="{{users.UserID}}"></textarea>
+                    </div>
+                </div>
+                <div class="inputGroup">
+                    <label for="MaturityCheck">For Mature Audiences Only?</label>
+                </div>                
             </div>
         </div>
-        <div class="inputGroup">
-            <label for="MaturityCheck">Maturity Rating</label>
-            <div class="inputIcons checkbox">
-                <input type="checkbox" name="yes"> Yes
-            </div>
-            <div class="btnWrap">
-                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
-            </div>
-        </div>
-        <div class="inputGroup">
-            <label for="MaturityCheck">Maturity Label?</label>
-            <div class="inputIcons checkbox">
-                <input type="checkbox" name="yes"> Yes
-            </div>
-            <div class="btnWrap">
-                <button class="btn-primary changeDataBtn" onclick="changeData(this)" data-field="Description">Update</button>
-            </div>
-        </div>
-</div>
 {% endblock %}

@@ -1,12 +1,21 @@
 <?php
+class UserController
+{
+    public static function deleteAccount(PDO $pdo, int $userId): bool
+    {
+        $pdo->beginTransaction();
+        try {
+            // If you don’t have FK CASCADEs, remove dependents explicitly:
+            $pdo->prepare('DELETE FROM usersocials WHERE UserID = ?')->execute([$userId]);
+            $pdo->prepare('DELETE FROM profile     WHERE ProfileID = ?')->execute([$userId]);
+            // Finally delete the user
+            $ok = $pdo->prepare('DELETE FROM users WHERE UserID = ?')->execute([$userId]);
 
-function getUserInfo($pdo, $userID) {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE user_id = ?");
-    $stmt->execute([$userID]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-function getProfileInfo($pdo, $profileID){
-    $stmt = $pdo->prepare("SELECT * FROM profile WHERE profileID = ? LEFT JOIN users where user_id = ?");
-    $stmt->execute([$profileID, $userID]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+            $pdo->commit();
+            return $ok;
+        } catch (Throwable $e) {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+            return false;
+        }
+    }
 }

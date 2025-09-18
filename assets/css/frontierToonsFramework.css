@@ -32,7 +32,7 @@ header, #headerWrap, #navList, img{
 	width:100%;	
 }
 header{
-	background:#118C46;
+	background:#021323;
 	padding:13px;
 	box-sizing: border-box;			
 }
@@ -55,6 +55,9 @@ input{
 }
 #headerWrap #siteLogo{
 	font-size:25px;
+}
+#siteLogo img{
+	max-width: 350px;
 }
 #siteLogo a{
 	color:#1A1A1A
@@ -164,125 +167,10 @@ input-group{
 p.formText{
 	font-size: 17px;	
 }
-#dashboard{
-	display:flex;
-	align-items: flex-start;
-	justify-content: center;
-	margin:0 auto;
-	border-radius: 35px;
-}
-#dashboardHeader {
-	display:flex;
-	align-items: center;
-	justify-content: space-between;
-	gap:35px;
-  text-transform: uppercase;
-  font-weight: bold;
-	width:100%;
-	margin:0 auto;
-}
-#dashboardHeader, #dashboardWrapper{
-	max-width: 1400px;
-}
-#dashboardWelcomeText{
-	display:flex;
-	flex-direction: column;
-	font-size:55px;	
-}
-#dashboardHeader p{
-	margin-top:0;
-	font-size:26px;
-}
-#dashboardHeader small{
-	font-size:16px;
-	font-weight: 300
-}
-#dashboardHeadLeft{
-	display:flex;
-	align-items: center;	
-	gap:15px;
-}
-#dashboardWrapper {
-  display:flex;
-	flex-direction: column;	
-  justify-content: space-between;
-	width:100%;
-  margin:0 auto;
-  font-size:16px;
-	/*! background:#082640; */
-	/*! border:1px solid #17A68C; */
-	padding:10px;
-	border-radius:10px
-}
-#dashboardSidebar{
-  display:flex;
-	flex-direction: column;
-  line-height:1.9;
-	position: sticky;
-	top: 0;
-	border-top:1px solid #17A68C;
-	border-right:1px solid #17A68C;
-	border-bottom:1px solid #17A68C;
-	width:100%;
-	max-width:250px;
-	height:100vh;
-	background:#082640;
-}
-#dashboardSidebar div{
-	padding:5px 20px;
-	margin-bottom:20px;
-	font-weight: 300;
-	cursor:pointer;
-}
-#dashboardSidebar div:hover{
-	background-color:#118C46;
-	color:#fff;
-}
-#dashboardSidebar div.active{
-	background-color:#118C46;
-	color:#ECF0F1;
-}
-#resultsSection{  
-  width:100%;	
-	margin:0 auto;	
-}
-.dashboardResults.active{
-  display: flex;	
-	flex-direction: column;	
-	gap:20px;
-	max-width:1400px;
-	margin:0 auto;
-}
-#resultsInnerHead{
-	text-align: center;
-}
-.dashboardResults{
-  display: none;
-	padding:25px;
-}
-.dashboardResultsTop {
-  display:flex;
-	align-items: center;
-	width: 100%;	
-}
-.dashboardResults.edit{
-	align-items: flex-end;
-}
-#dashboardWrapper h2{
-	width:100%;
-}
-#dashboardAvatar {
-  max-width:100px;
-  max-height: 200px;
-  border-radius: 50%;  
-	cursor:pointer;
-}
-.signoutBtn, .loginBtn{
-
-}
 .btn-primary{
 	display:flex;
 	justify-content: center;
+	align-items: center;
 	padding:5px 20px;
 	background:#03C8FA;
   color:#1A1A1A;

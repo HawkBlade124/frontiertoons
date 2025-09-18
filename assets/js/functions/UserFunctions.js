@@ -297,7 +297,6 @@ function uploadImage() {
                 },
                 data: {
                     action: 'deleteAccount',
-                    Username: currentUsername // Updated to PascalCase
                 },
                 success: function(response) {
                     if (response.success) {
